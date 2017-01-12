@@ -4,6 +4,8 @@ import { StyleSheet } from 'react-native'
 import { Colors, Metrics, ApplicationStyles, Fonts } from '../../Themes/index.js'
 
 
+const journalHeight = (Metrics.screenHeight-Metrics.navBarHeight)-(Metrics.quadBaseMargin*2+Metrics.baseMargin)
+
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -11,19 +13,20 @@ export default StyleSheet.create({
     backgroundColor: Colors.background
   } as React.ViewStyle,
   journal: {
-    height: (Metrics.screenHeight - Metrics.navBarHeight) - (Metrics.quadBaseMargin + Metrics.doubleBaseMargin + Metrics.baseMargin),
+    height: journalHeight,
     marginTop: Metrics.baseMargin,
     marginRight: Metrics.doubleBaseMargin,
     marginLeft: Metrics.doubleBaseMargin,
     backgroundColor: Colors.snow,
-    elevation: 10
+    elevation: 10,
+    padding: Metrics.doubleBaseMargin
   } as React.ViewStyle,
   header: {
-    margin: Metrics.doubleBaseMargin,
+    // margin: Metrics.doubleBaseMargin,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    height: 50
+    flex: 1
   } as React.ViewStyle,
   headerText: {
     fontWeight: "bold",
@@ -34,8 +37,7 @@ export default StyleSheet.create({
     flex: 1
   } as React.ViewStyle,
   section: {
-    height: 70,
-    margin: Metrics.doubleBaseMargin
+    flex: 2
   } as React.ViewStyle,
   sectionHeader: {
     fontWeight: "bold",
@@ -44,6 +46,12 @@ export default StyleSheet.create({
   actions: {
     paddingRight: Metrics.doubleBaseMargin,
     ...Fonts.style.normal
-  } as React.TextStyle
+  } as React.TextStyle,
+  plantPics: {
+    flex: 0
+  } as React.ImageStyle,
+  plantRow: {
+    flex: 7
+  } as React.ViewStyle
 
 })

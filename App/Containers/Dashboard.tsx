@@ -26,7 +26,8 @@ declare type card = {
     humidity: number,
     warnings: Array<string>,
     ph: number,
-    startDate: Moment.Moment
+    startDate: Moment.Moment,
+    pictures: React.Image[]
 };
 
 enum plantState {
@@ -55,7 +56,8 @@ const Cards: cards = [
         humidity: 90,
         warnings: [],
         ph: 5.6,
-        startDate: Moment("2016-10-08 08:00")
+        startDate: Moment("2016-10-08 08:00"),
+        pictures: [Images.weed1, Images.weed2]
       },{
         key: 2,
         actions: ["pruned"],
@@ -67,7 +69,8 @@ const Cards: cards = [
         humidity: 50,
         warnings: ["Super hot!"],
         ph: 6.7,
-        startDate: Moment("2016-11-13 08:00")
+        startDate: Moment("2016-11-13 08:00"),
+        pictures: [Images.weed3]
       },
       {
         key: 3,
@@ -80,7 +83,8 @@ const Cards: cards = [
         humidity: 45,
         warnings: [],
         ph: 4.5,
-        startDate: Moment("2016-11-13 08:00")
+        startDate: Moment("2016-11-13 08:00"),
+        pictures: [Images.weed4, Images.weed5]
       },{
         key: 4,
         actions: ["watered"],
@@ -92,7 +96,8 @@ const Cards: cards = [
         humidity: 60,
         warnings: [],
         ph: 5.6,
-        startDate: Moment("2016-10-08 08:00")
+        startDate: Moment("2016-10-08 08:00"),
+        pictures: [Images.weed6]
       }
     ]
 

@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import { ScrollView, Text, View, ListView } from 'react-native'
+import { ScrollView, Text, View, ListView, Image } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -57,11 +57,22 @@ class JournalEntryScreen extends React.Component<any, any> {
     )
   }
 
-  // renderImageRow(images: React.Image[]) {
-  //   return(
-  //     <ListView> </ListView
-  //   )
-  // }
+  renderImageRow(images: React.Image[]) {
+    return(
+      <ScrollView horizontal style={styles.plantRow}>
+        {images.map((image, index) => {
+          return (
+            <Image
+              source={image}
+              style={styles.plantPics}
+              key={index}
+              resizeMode="contain"
+            />
+          )
+        })}
+      </ScrollView>
+    )
+  }
 
   renderJournal(card: card): JSX.Element {
     return (
@@ -72,9 +83,11 @@ class JournalEntryScreen extends React.Component<any, any> {
           ph={this.props.card.ph}
           humidity={this.props.card.humidity}
           warnings={this.props.card.warnings}
+          style={{flex:1, margin: 0}}
         />
         {this.renderActionsTaken(card.actions)}
         {this.renderComments(card.comments)}
+        {this.renderImageRow(card.pictures)}
       </View>
     )
   }

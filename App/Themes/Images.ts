@@ -15,7 +15,13 @@ const images = {
   flowerFilled: require('../Images/flower_filled.png'),
   warningShield: require('../Images/warning_shield.png'),
   clock: require('../Images/clock.png'),
-  redWarningShield: require('../Images/red_warning_shield.png')
+  redWarningShield: require('../Images/red_warning_shield.png'),
+  weed1: require('../Images/weed1.jpg'),
+  weed2: require('../Images/weed2.jpg'),
+  weed3: require('../Images/weed3.jpg'),
+  weed4: require('../Images/weed4.jpg'),
+  weed5: require('../Images/weed5.jpg'),
+  weed6: require('../Images/weed6.jpg')
 }
 
 export default images

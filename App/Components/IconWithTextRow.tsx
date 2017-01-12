@@ -13,7 +13,8 @@ type iconWithTextRowProps = {
   humidity: number,
   warnings: string[],
   ph: number,
-  temperature: number
+  temperature: number,
+  style: any
 }
 
 class IconWithTextRow extends React.Component<iconWithTextRowProps, null> {
@@ -30,7 +31,7 @@ class IconWithTextRow extends React.Component<iconWithTextRowProps, null> {
     ]
     // console.log(iconsWithText)
     return (
-      <View style={styles.iconRow}>
+      <View style={[styles.iconRow, this.props.style]}>
         {icons.map((iconText: IconWithTextProps) => {
           return <IconWithText imageSrc={ iconText.imageSrc} info={iconText.info} key={iconText.info}/>
         })}
