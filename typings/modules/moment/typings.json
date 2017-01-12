@@ -1,0 +1,11 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "/home/layz/grow-journal/GrowJournal/node_modules/moment/package.json",
+    "raw": "npm:moment",
+    "main": "./moment.js",
+    "typings": "./moment.d.ts",
+    "version": "2.17.1",
+    "name": "moment"
+  }
+}

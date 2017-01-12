@@ -4,7 +4,7 @@
         "module": "es2015",
         "jsx": "react",
         "allowSyntheticDefaultImports": true, // what the fuck is this?
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "sourceMap": true,
         "rootDir": "App",
         "outDir": "build",

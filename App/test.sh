@@ -1,9 +1,5 @@
-for folder in `ls -R`
+for file in `ls ./Services/*.ts`
 do
-	extension="${folder:${#folder}-2}"
-	if [[ $extension = "js" ]] ; then
-		echo $folder
-	else
-		echo "Not JS File"
-	fi
+	echo $file
+	mv $file "${file%.ts}.tsx"
 done
