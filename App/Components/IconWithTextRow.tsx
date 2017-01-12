@@ -5,21 +5,9 @@ import { View, Text, Image } from 'react-native'
 import styles from './Styles/IconWithTextRowStyle'
 import Images from '../Themes/Images'
 
-type iconText = {
-  imageSrc: React.Image,
-  info: string
-}
+import IconWithText, {IconWithTextProps} from './IconWithText'
 
-// Row with Icon view
-const renderIconView = ({imageSrc, info}: iconText) => {
-  // console.log(info)
-  return (
-    <View style={styles.iconView} key={info}>
-      <Image source={imageSrc} style={styles.icon}/>
-      <Text style={styles.iconText}> {info} </Text>
-    </View>
-  )
-}
+
 
 type iconWithTextRowProps = {
   humidity: number,
@@ -43,8 +31,8 @@ class IconWithTextRow extends React.Component<iconWithTextRowProps, null> {
     // console.log(iconsWithText)
     return (
       <View style={styles.iconRow}>
-        {icons.map((iconText: iconText) => {
-          return renderIconView({ imageSrc: iconText.imageSrc, info: iconText.info})
+        {icons.map((iconText: IconWithTextProps) => {
+          return <IconWithText imageSrc={ iconText.imageSrc} info={iconText.info} key={iconText.info}/>
         })}
       </View>
     )
