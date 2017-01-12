@@ -1,5 +1,4 @@
 import React from 'react'
-import { GJ } from '../Types/globals'
 import { ScrollView, Text , View, Image, ListView, TouchableHighlight} from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
@@ -17,17 +16,44 @@ import { Images } from '../Themes/index.js'
 import Moment from 'moment';
 
 
+declare type card = {
+    key: number
+    name: string,
+    comments: string,
+    actions: Array<actions> ,
+    timestamp: Moment.Moment,
+    state: plantState,
+    temperature: Number,
+    humidity: number,
+    warnings: Array<String>,
+    ph: number,
+    startDate: Moment.Moment
+};
+
+enum plantState {
+    flowering,
+    vegetative,
+}
+
+enum actions {
+    watered,
+    topped,
+    transplanted,
+    changedReservoir,
+    pruned
+}
+
 const theme = getTheme();
-type cards = Array<GJ.card>
+type cards = Array<card>
 
 const Cards: cards = [
       {
         key: 1,
-        actions: [GJ.actions.watered],
+        actions: [actions.watered],
         name: "Og Kush",
         comments: "Looks like growth is going well",
         timestamp: Moment("2016-12-07 09:30"),
-        state: GJ.plantState.flowering,
+        state: plantState.flowering,
         temperature: 25,
         humidity: 90,
         warnings: [],
@@ -35,11 +61,11 @@ const Cards: cards = [
         startDate: Moment("2016-10-08 08:00")
       },{
         key: 2,
-        actions: [GJ.actions.pruned],
+        actions: [actions.pruned],
         name: "Purple Haze",
         comments: "Needs to be careful with temperatures",
         timestamp: Moment("2016-12-08 10:10"),
-        state: GJ.plantState.vegetative,
+        state: plantState.vegetative,
         temperature: 56,
         humidity: 50,
         warnings: ["Super hot!"],
@@ -48,11 +74,11 @@ const Cards: cards = [
       },
       {
         key: 3,
-        actions: [GJ.actions.watered],
+        actions: [actions.watered],
         name: "Purple Haze",
         comments: "Might need more sunlight",
         timestamp: Moment("2016-12-08 11:10"),
-        state: GJ.plantState.vegetative,
+        state: plantState.vegetative,
         temperature: 56,
         humidity: 45,
         warnings: [],
@@ -60,11 +86,11 @@ const Cards: cards = [
         startDate: Moment("2016-11-13 08:00")
       },{
         key: 4,
-        actions: [GJ.actions.watered],
+        actions: [actions.watered],
         name: "Og Kush",
         comments: "Looks like it might be about to flower",
         timestamp: Moment("2016-11-28 16:30"),
-        state: GJ.plantState.vegetative,
+        state: plantState.vegetative,
         temperature: 30,
         humidity: 60,
         warnings: [],
@@ -155,7 +181,7 @@ class Dashboard extends React.Component<any,any> {
 
   }
 
-  renderCard(card: GJ.card) {
+  renderCard(card: card) {
     const timeSinceStart = card.startDate.fromNow(true);
     const heading: string = card.name +  ' - ' + timeSinceStart + ' ' + card.state
 
@@ -180,7 +206,7 @@ class Dashboard extends React.Component<any,any> {
     }
 
 
-    renderDay({day, cards}: {day: Moment.Moment, cards: GJ.card[]}) {
+    renderDay({day, cards}: {day: Moment.Moment, cards: card[]}) {
       return (
         <View style={styles.day}>
           <Text style={styles.dayDate}>{this.getDateString(day)}</Text>
@@ -211,3 +237,5 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+
+export { card, actions, plantState }
