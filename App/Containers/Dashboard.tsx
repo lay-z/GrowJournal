@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
-import { getTheme } from 'react-native-material-kit';
 
 // Bringing in them Components
 import IconWithTextRow from '../Components/IconWithTextRow'
@@ -23,9 +22,9 @@ declare type card = {
     actions: Array<actions> ,
     timestamp: Moment.Moment,
     state: plantState,
-    temperature: Number,
+    temperature: number,
     humidity: number,
-    warnings: Array<String>,
+    warnings: Array<string>,
     ph: number,
     startDate: Moment.Moment
 };
@@ -35,21 +34,19 @@ enum plantState {
     vegetative,
 }
 
-enum actions {
-    watered,
-    topped,
-    transplanted,
-    changedReservoir,
-    pruned
-}
+type actions = 
+    | "watered"
+    | "topped" 
+    | "transplanted" 
+    | "changedReservoir"
+    | "pruned"
 
-const theme = getTheme();
 type cards = Array<card>
 
 const Cards: cards = [
       {
         key: 1,
-        actions: [actions.watered],
+        actions: ["watered"],
         name: "Og Kush",
         comments: "Looks like growth is going well",
         timestamp: Moment("2016-12-07 09:30"),
@@ -61,7 +58,7 @@ const Cards: cards = [
         startDate: Moment("2016-10-08 08:00")
       },{
         key: 2,
-        actions: [actions.pruned],
+        actions: ["pruned"],
         name: "Purple Haze",
         comments: "Needs to be careful with temperatures",
         timestamp: Moment("2016-12-08 10:10"),
@@ -74,7 +71,7 @@ const Cards: cards = [
       },
       {
         key: 3,
-        actions: [actions.watered],
+        actions: ["watered"],
         name: "Purple Haze",
         comments: "Might need more sunlight",
         timestamp: Moment("2016-12-08 11:10"),
@@ -86,7 +83,7 @@ const Cards: cards = [
         startDate: Moment("2016-11-13 08:00")
       },{
         key: 4,
-        actions: [actions.watered],
+        actions: ["watered"],
         name: "Og Kush",
         comments: "Looks like it might be about to flower",
         timestamp: Moment("2016-11-28 16:30"),

@@ -14,6 +14,7 @@ const images = {
   leafFilled: require('../Images/leaf_filled.png'),
   flowerFilled: require('../Images/flower_filled.png'),
   warningShield: require('../Images/warning_shield.png'),
+  clock: require('../Images/clock.png'),
   redWarningShield: require('../Images/red_warning_shield.png')
 }
 
