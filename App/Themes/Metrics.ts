@@ -11,6 +11,7 @@ const metrics = {
   section: 25,
   baseMargin: 10,
   doubleBaseMargin: 20,
+  quadBaseMargin: 40,
   smallMargin: 2,
   horizontalLineHeight: 1,
   searchBarHeight: 30,

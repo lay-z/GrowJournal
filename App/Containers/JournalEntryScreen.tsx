@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import { ScrollView, Text } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -13,11 +13,11 @@ import IconWithTextRow from '../Components/IconWithTextRow'
 import styles from './Styles/JournalEntryScreenStyle'
 
 // Types
-import { GJ } from '../Types/globals'
+import { card, actions, plantState } from './Dashboard'
 
 
 type JournalEntryScreenPropTypes = {
-  card: GJ.card
+  card: card
 }
 
 class JournalEntryScreen extends React.Component<any, any> {
@@ -28,20 +28,40 @@ class JournalEntryScreen extends React.Component<any, any> {
   // }
 
   renderHeader(plantName: string) {
-    <Text>{plantName}</Text>
+    <View style={styles.header}>
+      <Text style={styles.header.text}>{plantName}</Text>
+    </View>
   }
 
-  render () {
+  renderJournal(card: card): JSX.Element {
     return (
-      <ScrollView style={styles.container}>
-        <Text>{this.props.card.name}</Text>
-        <Text>This works!</Text>
+      <View style={styles.journal}>
         <IconWithTextRow
           temperature={this.props.card.temperature}
           ph={this.props.card.ph}
           humidity={this.props.card.humidity}
           warnings={this.props.card.warnings}
         />
+      </View>
+    )
+  }
+
+  renderComments(comments: string): JSX.Element {
+    return (
+      <View>Comments </View>
+    )
+  }
+
+  renderActionsTaken(actions: actions[]): JSX.Element {
+    return (
+      <View>Actions</View>
+    )
+  }
+
+  render () {
+    return (
+      <ScrollView style={styles.container}>
+        {this.renderJournal(this.props.card)}
       </ScrollView>
     )
   }
