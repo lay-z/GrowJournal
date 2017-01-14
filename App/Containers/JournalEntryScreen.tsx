@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
-import * as moment from 'moment'
+import Moment from 'moment'
 
 // Components
 import IconWithTextRow from '../Components/IconWithTextRow'
@@ -17,20 +17,97 @@ import {Images} from '../Themes/index'
 
 // Types
 import { GJ } from '../Types/globals'
+import { plantState } from '../Types/enums'
 
 
-type JournalEntryScreenPropTypes = {
-  card: GJ.JournalEntry
+
+const mockData: JournalEntryScreenPropTypes = {
+  journalEntries: [
+      {
+          actions: ["watered"],
+          name: "Og Kush",
+          comments: "Looks like growth is going well. Inshalah we shall be flowering soon :D here is exta long comment",
+          timestamp: Moment("2016-12-07 09:30"),
+          state: plantState.flowering,
+          temperature: 25,
+          humidity: 90,
+          warnings: [],
+          ph: 5.6,
+          pictures: [Images.weed1, Images.weed2],
+          journalID: "123456789"
+      },{
+          actions: ["watered"],
+          name: "Og Kush",
+          comments: "Looks like it might be about to flower",
+          timestamp: Moment("2016-11-28 16:30"),
+          state: plantState.vegetative,
+          temperature: 30,
+          humidity: 60,
+          warnings: [],
+          ph: 5.6,
+          pictures: [Images.weed6],
+          journalID: "123456789"
+      }
+  ],
+  journal: null
 }
 
-class JournalEntryScreen extends React.Component<any, any> {
+type JournalEntryDic = {[id: string]: GJ.JournalEntry}
 
-  // constructor (props) {
-  //   super(props)
-  //   this.state = {}
-  // }
+interface JournalEntryScreenPropTypes {
+  journalEntryTimeStamp: string
+  allJournalEntries: JournalEntryDic
+  journalEntries: GJ.JournalEntry[] | null
+  journal: GJ.Journal | null
+}
 
-  renderHeader(plantName: string, timestamp: moment.Moment) {
+interface JournalEntryScreenState {
+  dataSource: React.ListViewDataSource
+}
+
+// Filters JournalEntries by relation to a Journal
+// Returns a sorted array of JournalEntries
+const filterJournalEntries = (journal: GJ.Journal, journalEntries: JournalEntryDic) => {
+
+  let filteredJournals = []
+  let journalEntry: GJ.JournalEntry;
+  // let startDateString = String(journal.startDate.valueOf())
+  for (let key in journalEntries) {
+    journalEntry = journalEntries[key]
+    if (journalEntry.journalID === journal.id) {
+      filteredJournals.push(journalEntries[key])
+    }
+  }
+
+  // And now sort them by timestamp
+  return filteredJournals.sort(({timestamp1}, {timestamp2}) => -timestamp1.day.diff(timestamp2.day, 'days'))
+}
+
+class JournalEntryScreen extends React.Component<JournalEntryScreenPropTypes, JournalEntryScreenState> {
+
+  public static defaultProps: JournalEntryScreenPropTypes = mockData
+
+  constructor (props) {
+    super(props)
+
+
+    const filteredJournalEntries = filterJournalEntries(props.journal, props.allJournalEntries)
+    
+
+    const dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.timestamp !== r2.timestamp})
+    this.state = {
+      dataSource: dataSource.cloneWithRows(filteredJournalEntries)
+    }
+
+    // Javascript bindings to this yo
+    this.renderJournal = this.renderJournal.bind(this);
+
+  }
+
+
+
+
+  renderHeader(plantName: string, timestamp: Moment.Moment) {
     return (
       <View style={styles.header}>
         <Text style={styles.headerText}>{plantName}</Text>
@@ -95,16 +172,21 @@ class JournalEntryScreen extends React.Component<any, any> {
 
   render () {
     return (
-      <ScrollView style={styles.container}>
-        {console.log(this.props.card)}
-        {this.renderJournal(this.props.card)}
-      </ScrollView>
+      <ListView 
+        style={styles.container}
+        dataSource={this.state.dataSource}
+        renderRow={this.renderJournal}
+      />
     )
   }
 }
 
-const mapStateToProps = (state) => {
+// JournalEntryScreen.defaultProps = mockData
+
+const mapStateToProps = (state: GJ.GLOBAL_STATE, {journalID}) => {
   return {
+    allJournalEntries: state.journalEntries,
+    journal: state.journals[journalID]
   }
 }
 

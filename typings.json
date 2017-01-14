@@ -3,11 +3,12 @@
   "dependencies": {
     "moment": "npm:moment",
     "react-native-router-flux": "npm:react-native-router-flux",
-    "react-redux": "registry:npm/react-redux#4.4.0+20160614222153",
+    "react-redux": "registry:dt/react-redux#4.4.0+20161124155658",
     "seamless-immutable": "registry:dt/seamless-immutable#6.1.3+20161103015415"
   },
   "globalDependencies": {
     "react": "registry:dt/react#0.14.0+20161024223416",
-    "react-native": "registry:dt/react-native#0.34.0+20161025145826"
+    "react-native": "registry:dt/react-native#0.34.0+20161025145826",
+    "redux": "registry:dt/redux#3.5.2+20160703092728"
   }
 }

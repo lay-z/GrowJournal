@@ -1,5 +1,6 @@
 // namespace Glob
 import Moment from 'moment';
+import {plantState} from './enums'
 
 export declare namespace GJ {
 // namespace Glob
@@ -7,7 +8,7 @@ export declare namespace GJ {
     type JournalID = string
 
     interface JournalEntry {
-        key: number
+        key?: number
         name: string,
         comments: string,
         actions: Array<actions> ,
@@ -33,10 +34,9 @@ export declare namespace GJ {
         numberOfPlants?: number // Only if the journal is a btatch
     }
 
-
-    enum plantState {
-        flowering,
-        vegetative,
+    interface GLOBAL_STATE {
+        journalEntries: {[id: string]: JournalEntry},
+        journals: {[id: JournalID]: Journal}
     }
 
     type actions =

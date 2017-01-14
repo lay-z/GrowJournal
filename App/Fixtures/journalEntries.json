@@ -1,0 +1,56 @@
+[
+    {
+        "key": 1,
+        "actions": ["watered"],
+        "name": "Og Kush",
+        "comments": "Looks like growth is going well. Inshalah we shall be flowering soon :D here is exta long comment",
+        "timestamp": "2016-12-07 09:30",
+        "state": 0,
+        "temperature": 25,
+        "humidity": 90,
+        "warnings": [],
+        "ph": 5.6,
+        "startDate": "2016-10-08 08:00",
+        "pictures": ["weed1", "weed2"]
+    },{
+        "key": 2,
+        "actions": ["pruned"],
+        "name": "Purple Haze",
+        "comments": "Needs to be careful with temperatures",
+        "timestamp": "2016-12-08 10:10",
+        "state": 1,
+        "temperature": 56,
+        "humidity": 50,
+        "warnings": ["Super hot!"],
+        "ph": 6.7,
+        "startDate": "2016-11-13 08:00",
+        "pictures": ["weed3"]
+    },
+    {
+        "key": 3,
+        "actions": ["watered"],
+        "name": "Purple Haze",
+        "comments": "Might need more sunlight",
+        "timestamp": "2016-12-08 11:10",
+        "state": 1,
+        "temperature": 56,
+        "humidity": 45,
+        "warnings": [],
+        "ph": 4.5,
+        "startDate": "2016-11-13 08:00",
+        "pictures": ["weed4", "weed5"]
+    },{
+        "key": 4,
+        "actions": ["watered"],
+        "name": "Og Kush",
+        "comments": "Looks like it might be about to flower",
+        "timestamp": "2016-11-28 16:30",
+        "state": 1,
+        "temperature": 30,
+        "humidity": 60,
+        "warnings": [],
+        "ph": 5.6,
+        "startDate": "2016-10-08 08:00",
+        "pictures": ["weed6"]
+    }
+]

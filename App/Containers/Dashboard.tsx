@@ -13,6 +13,7 @@ import styles from './Styles/DashboardStyle'
 import { Images } from '../Themes/index.js'
 
 import { GJ } from '../Types/globals'
+import { plantState } from '../Types/enums'
 
 import Moment from 'moment';
 
@@ -21,18 +22,6 @@ interface card extends GJ.JournalEntry{
   startDate: Moment.Moment
 }
 
-
-enum plantState {
-    flowering,
-    vegetative,
-}
-
-type actions = 
-    | "watered"
-    | "topped" 
-    | "transplanted" 
-    | "changedReservoir"
-    | "pruned"
 
 type cards = Array<card>
 
@@ -43,7 +32,7 @@ const Cards: cards = [
         name: "Og Kush",
         comments: "Looks like growth is going well. Inshalah we shall be flowering soon :D here is exta long comment",
         timestamp: Moment("2016-12-07 09:30"),
-        state: GJ.plantState.flowering,
+        state: plantState.flowering,
         temperature: 25,
         humidity: 90,
         warnings: [],
@@ -56,7 +45,7 @@ const Cards: cards = [
         name: "Purple Haze",
         comments: "Needs to be careful with temperatures",
         timestamp: Moment("2016-12-08 10:10"),
-        state: GJ.plantState.vegetative,
+        state: plantState.vegetative,
         temperature: 56,
         humidity: 50,
         warnings: ["Super hot!"],
@@ -70,7 +59,7 @@ const Cards: cards = [
         name: "Purple Haze",
         comments: "Might need more sunlight",
         timestamp: Moment("2016-12-08 11:10"),
-        state: GJ.plantState.vegetative,
+        state: plantState.vegetative,
         temperature: 56,
         humidity: 45,
         warnings: [],
@@ -83,7 +72,7 @@ const Cards: cards = [
         name: "Og Kush",
         comments: "Looks like it might be about to flower",
         timestamp: Moment("2016-11-28 16:30"),
-        state: GJ.plantState.vegetative,
+        state: plantState.vegetative,
         temperature: 30,
         humidity: 60,
         warnings: [],
@@ -187,7 +176,7 @@ class Dashboard extends React.Component<any,any> {
     }
 
     return (
-        <TouchableHighlight key={card.key} style={styles.touchableCard} onPress={() => NavigationActions.journalEntry({card})}>
+        <TouchableHighlight key={card.key} style={styles.touchableCard} onPress={() => NavigationActions.journalEntry(card.journalID)}>
           <View style={styles.card}>
             {this.renderCardHeader(heading, card.timestamp)}
             <IconWithTextRow humidity={card.humidity} temperature={card.temperature} ph={card.ph} warnings={card.warnings} />
@@ -231,5 +220,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
-
-export { card, actions, plantState }
