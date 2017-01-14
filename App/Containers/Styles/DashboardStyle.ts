@@ -13,7 +13,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.background
   } as React.ViewStyle,
   card: {
-    height: 200,
+    flex: 1,
     backgroundColor: Colors.snow,
     flexDirection: 'column',
     // justifyContent: 'space'

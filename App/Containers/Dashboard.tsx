@@ -12,23 +12,15 @@ import IconWithTextRow from '../Components/IconWithTextRow'
 import styles from './Styles/DashboardStyle'
 import { Images } from '../Themes/index.js'
 
+import { GJ } from '../Types/globals'
+
 import Moment from 'moment';
 
+interface card extends GJ.JournalEntry{
+  key: number,
+  startDate: Moment.Moment
+}
 
-declare type card = {
-    key: number
-    name: string,
-    comments: string,
-    actions: Array<actions> ,
-    timestamp: Moment.Moment,
-    state: plantState,
-    temperature: number,
-    humidity: number,
-    warnings: Array<string>,
-    ph: number,
-    startDate: Moment.Moment,
-    pictures: React.Image[]
-};
 
 enum plantState {
     flowering,
@@ -49,9 +41,9 @@ const Cards: cards = [
         key: 1,
         actions: ["watered"],
         name: "Og Kush",
-        comments: "Looks like growth is going well",
+        comments: "Looks like growth is going well. Inshalah we shall be flowering soon :D here is exta long comment",
         timestamp: Moment("2016-12-07 09:30"),
-        state: plantState.flowering,
+        state: GJ.plantState.flowering,
         temperature: 25,
         humidity: 90,
         warnings: [],
@@ -64,7 +56,7 @@ const Cards: cards = [
         name: "Purple Haze",
         comments: "Needs to be careful with temperatures",
         timestamp: Moment("2016-12-08 10:10"),
-        state: plantState.vegetative,
+        state: GJ.plantState.vegetative,
         temperature: 56,
         humidity: 50,
         warnings: ["Super hot!"],
@@ -78,7 +70,7 @@ const Cards: cards = [
         name: "Purple Haze",
         comments: "Might need more sunlight",
         timestamp: Moment("2016-12-08 11:10"),
-        state: plantState.vegetative,
+        state: GJ.plantState.vegetative,
         temperature: 56,
         humidity: 45,
         warnings: [],
@@ -91,7 +83,7 @@ const Cards: cards = [
         name: "Og Kush",
         comments: "Looks like it might be about to flower",
         timestamp: Moment("2016-11-28 16:30"),
-        state: plantState.vegetative,
+        state: GJ.plantState.vegetative,
         temperature: 30,
         humidity: 60,
         warnings: [],

@@ -16,11 +16,11 @@ import styles from './Styles/JournalEntryScreenStyle'
 import {Images} from '../Themes/index'
 
 // Types
-import { card, actions, plantState } from './Dashboard'
+import { GJ } from '../Types/globals'
 
 
 type JournalEntryScreenPropTypes = {
-  card: card
+  card: GJ.JournalEntry
 }
 
 class JournalEntryScreen extends React.Component<any, any> {
@@ -48,7 +48,7 @@ class JournalEntryScreen extends React.Component<any, any> {
     )
   }
 
-  renderActionsTaken(actions: actions[]): JSX.Element {
+  renderActionsTaken(actions: GJ.actions[]): JSX.Element {
     return (
       <View style={styles.section}>
         <Text style={styles.sectionHeader}>Actions taken:</Text>
@@ -61,12 +61,13 @@ class JournalEntryScreen extends React.Component<any, any> {
     return(
       <ScrollView horizontal style={styles.plantRow}>
         {images.map((image, index) => {
+          
           return (
             <Image
               source={image}
               style={styles.plantPics}
               key={index}
-              resizeMode="contain"
+              resizeMode={Image.resizeMode["contain"]}
             />
           )
         })}
@@ -74,20 +75,20 @@ class JournalEntryScreen extends React.Component<any, any> {
     )
   }
 
-  renderJournal(card: card): JSX.Element {
+  renderJournal(JournalEntry: GJ.JournalEntry): JSX.Element {
     return (
       <View style={styles.journal}>
-        {this.renderHeader(card.name, card.timestamp)}
+        {this.renderHeader(JournalEntry.name, JournalEntry.timestamp)}
         <IconWithTextRow
-          temperature={this.props.card.temperature}
-          ph={this.props.card.ph}
-          humidity={this.props.card.humidity}
-          warnings={this.props.card.warnings}
-          style={{flex:1, margin: 0}}
+          temperature={JournalEntry.temperature}
+          ph={JournalEntry.ph}
+          humidity={JournalEntry.humidity}
+          warnings={JournalEntry.warnings}
+          style={styles.iconRow}
         />
-        {this.renderActionsTaken(card.actions)}
-        {this.renderComments(card.comments)}
-        {this.renderImageRow(card.pictures)}
+        {this.renderActionsTaken(JournalEntry.actions)}
+        {this.renderComments(JournalEntry.comments)}
+        {this.renderImageRow(JournalEntry.pictures)}
       </View>
     )
   }
@@ -95,6 +96,7 @@ class JournalEntryScreen extends React.Component<any, any> {
   render () {
     return (
       <ScrollView style={styles.container}>
+        {console.log(this.props.card)}
         {this.renderJournal(this.props.card)}
       </ScrollView>
     )

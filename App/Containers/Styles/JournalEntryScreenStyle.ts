@@ -13,14 +13,18 @@ export default StyleSheet.create({
     backgroundColor: Colors.background
   } as React.ViewStyle,
   journal: {
-    height: journalHeight,
+    // height: journalHeight,
+    flex:1,
     marginTop: Metrics.baseMargin,
     marginRight: Metrics.doubleBaseMargin,
     marginLeft: Metrics.doubleBaseMargin,
     backgroundColor: Colors.snow,
     elevation: 10,
-    padding: Metrics.doubleBaseMargin
+    padding: Metrics.doubleBaseMargin,
+    paddingBottom: 0
   } as React.ViewStyle,
+
+  // Header
   header: {
     // margin: Metrics.doubleBaseMargin,
     flexDirection: "row",
@@ -36,7 +40,17 @@ export default StyleSheet.create({
   time: {
     flex: 1
   } as React.ViewStyle,
+
+  // Icon Row
+  iconRow: {
+    marginTop: Metrics.baseMargin,
+    flex:1,
+    margin: 0
+  } as React.ViewStyle, 
+
+  // Actions and Comments sections
   section: {
+    marginTop: Metrics.baseMargin,
     flex: 2
   } as React.ViewStyle,
   sectionHeader: {
@@ -47,11 +61,22 @@ export default StyleSheet.create({
     paddingRight: Metrics.doubleBaseMargin,
     ...Fonts.style.normal
   } as React.TextStyle,
+
+  // Plan Rows
   plantPics: {
-    flex: 0
+    flex: 1,
+    // width: 100,
+    // height: 150
+    // resizeMode: 
   } as React.ImageStyle,
   plantRow: {
-    flex: 7
+    // height: 150,
+    paddingTop: Metrics.baseMargin,
+    flexBasis: 2,
+    flex: 2,
+    padding: 0,
+    marginLeft: -40,
+    marginRight: -40
   } as React.ViewStyle
 
 })

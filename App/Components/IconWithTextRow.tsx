@@ -14,7 +14,7 @@ type iconWithTextRowProps = {
   warnings: string[],
   ph: number,
   temperature: number,
-  style: any
+  style?: any
 }
 
 class IconWithTextRow extends React.Component<iconWithTextRowProps, null> {

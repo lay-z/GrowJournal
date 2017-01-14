@@ -1,33 +1,49 @@
 // namespace Glob
 import Moment from 'moment';
 
-export namespace GJ {
+export declare namespace GJ {
 // namespace Glob
 
-    interface card {
+    type JournalID = string
+
+    interface JournalEntry {
         key: number
         name: string,
         comments: string,
         actions: Array<actions> ,
         timestamp: Moment.Moment,
         state: plantState,
-        temperature: Number,
+        temperature: number,
         humidity: number,
-        warnings: Array<String>,
+        warnings: Array<string>,
         ph: number,
-        startDate: Moment.Moment
+        journalID: JournalID,
+        author?: string // To possibly be changed to user type?
+        pictures?: React.Image[]
     }
+
+    interface Journal {
+        id: JournalID,
+        name: string,
+        startDate: Moment.Moment,
+        type: "batch" | "individual",
+        plantMethod: "seed" | "cutting",
+        medium: "hydroponic" | "cocoqua" // ways of growing the herb
+        initialComments: string,
+        numberOfPlants?: number // Only if the journal is a btatch
+    }
+
 
     enum plantState {
         flowering,
         vegetative,
     }
 
-    enum actions {
-        watered,
-        topped,
-        transplanted,
-        changedReservoir,
-        pruned
-    }
+    type actions =
+        | "watered"
+        | "topped"
+        | "transplanted"
+        | "changedReservoir"
+        | "pruned"
+
 }
