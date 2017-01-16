@@ -25,8 +25,8 @@ const journalEntriesDict = journalEntries.reduce((prev, cur) => {
     return prev
 }, {})
 
-console.log("journalEntries", journalEntriesDict)
-console.log("journals", journalsDict)
+// console.log("journalEntries", journalEntriesDict)
+// console.log("journals", journalsDict)
 
 export const state = {journals: journalsDict, journalEntries: journalEntriesDict}
 

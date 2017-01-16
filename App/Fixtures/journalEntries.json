@@ -1,6 +1,5 @@
 [
     {
-        "key": 1,
         "actions": ["watered"],
         "comments": "Looks like growth is going well. Inshalah we shall be flowering soon :D here is exta long comment",
         "timestamp": "2016-12-07 09:30",
@@ -12,7 +11,6 @@
         "pictures": ["weed1", "weed2"],
         "journalID": "123456"
     },{
-        "key": 2,
         "actions": ["pruned"],
         "comments": "Needs to be careful with temperatures",
         "timestamp": "2016-12-08 10:10",
@@ -26,7 +24,6 @@
 
     },
     {
-        "key": 3,
         "actions": ["watered"],
         "comments": "Might need more sunlight",
         "timestamp": "2016-12-08 11:10",
@@ -39,7 +36,6 @@
         "journalID": "345678"
         
     },{
-        "key": 4,
         "actions": ["watered"],
         "comments": "Looks like it might be about to flower",
         "timestamp": "2016-11-28 16:30",

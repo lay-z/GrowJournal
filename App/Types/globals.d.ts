@@ -36,7 +36,7 @@ export declare namespace GJ {
 
     interface GLOBAL_STATE {
         journalEntries: {[id: string]: JournalEntry},
-        journals: {[id: JournalID]: Journal}
+        journals: {[id: string]: Journal}
     }
 
     type actions =

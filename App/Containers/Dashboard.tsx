@@ -82,12 +82,34 @@ const Cards: cards = [
       }
     ]
 
+const sortOutProps = (journalEntries, journals) => {
+
+  const cards = []
+  let entry = null;
+  let tea = null;
+  for (let key in journalEntries) {
+    tea = Number(key)
+    if (tea) {
+      console.log("key", tea)
+      entry = Object.assign({}, journalEntries[key])
+      console.log(entry)
+      entry.name = journals[entry.journalID].name
+      entry.startDate = journals[entry.journalID].startDate
+      cards.push(entry)
+    }
+  }
+
+  return cards;
+}
+
 class Dashboard extends React.Component<any,any> {
 
   constructor (props) {
     super(props)
 
-    const cards = Dashboard.mapAndSortCards(Cards);
+    let cards = sortOutProps(props.journalEntries, props.journals)
+
+    cards = Dashboard.mapAndSortCards(cards);
 
     const dstore = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.day !== r2.day})
     this.state = {
@@ -176,7 +198,7 @@ class Dashboard extends React.Component<any,any> {
     }
 
     return (
-        <TouchableHighlight key={card.key} style={styles.touchableCard} onPress={() => NavigationActions.journalEntry(card.journalID)}>
+        <TouchableHighlight key={card.timestamp.valueOf()} style={styles.touchableCard} onPress={() => NavigationActions.journalEntry(card.journalID)}>
           <View style={styles.card}>
             {this.renderCardHeader(heading, card.timestamp)}
             <IconWithTextRow humidity={card.humidity} temperature={card.temperature} ph={card.ph} warnings={card.warnings} />
@@ -209,10 +231,7 @@ class Dashboard extends React.Component<any,any> {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-  }
-}
+const mapStateToProps = (state: GJ.GLOBAL_STATE) => state
 
 const mapDispatchToProps = (dispatch) => {
   return {

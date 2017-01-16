@@ -12,6 +12,7 @@ export default () => {
   const rootReducer = combineReducers({
     journalEntries: journalEntryReducer,
     journals: journalReducer,
+    temperature: require('./TemperatureRedux').reducer,
     login: require('./LoginRedux').reducer,
     search: require('./SearchRedux').reducer
   })
