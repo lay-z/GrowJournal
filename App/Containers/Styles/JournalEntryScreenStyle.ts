@@ -66,12 +66,13 @@ export default StyleSheet.create({
   plantPics: {
     flex: 1,
     // width: 100,
-    // height: 150
+    height: 150
     // resizeMode: 
   } as React.ImageStyle,
   plantRow: {
     // height: 150,
     paddingTop: Metrics.baseMargin,
+    paddingBottom: Metrics.baseMargin,
     flexBasis: 2,
     flex: 2,
     padding: 0,

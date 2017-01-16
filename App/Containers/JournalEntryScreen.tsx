@@ -55,7 +55,7 @@ const mockData: JournalEntryScreenPropTypes = {
 type JournalEntryDic = {[id: string]: GJ.JournalEntry}
 
 interface JournalEntryScreenPropTypes {
-  journalEntryTimeStamp: string
+  journalEntryTimeStamp: Moment.Moment
   allJournalEntries: JournalEntryDic
   journalEntries: GJ.JournalEntry[] | null
   journal: GJ.Journal | null
@@ -63,6 +63,7 @@ interface JournalEntryScreenPropTypes {
 
 interface JournalEntryScreenState {
   dataSource: React.ListViewDataSource
+  filteredEntries: GJ.JournalEntry[]
 }
 
 // Filters JournalEntries by relation to a Journal
@@ -71,17 +72,27 @@ const filterJournalEntries = (journal: GJ.Journal, journalEntries: JournalEntryD
 
   let filteredJournals = []
   let journalEntry: GJ.JournalEntry;
+  let date: number;
   // let startDateString = String(journal.startDate.valueOf())
   for (let key in journalEntries) {
-    journalEntry = journalEntries[key]
-    if (journalEntry.journalID === journal.id) {
-      filteredJournals.push(journalEntries[key])
+    date = Number(key)
+    if (date) {
+      journalEntry = journalEntries[key]
+      if (journalEntry.journalID === journal.id) {
+        journalEntry = Object.assign({}, journalEntry, {name: journal.name})
+        filteredJournals.push(journalEntry)
+      }
     }
   }
 
   // And now sort them by timestamp
-  return filteredJournals.sort(({timestamp1}, {timestamp2}) => -timestamp1.day.diff(timestamp2.day, 'days'))
+  return filteredJournals.sort((journalEntry1, journalEntry2) => {
+    return -journalEntry1.timestamp.diff(journalEntry2.timestamp, 'days')
+  })
 }
+
+
+
 
 class JournalEntryScreen extends React.Component<JournalEntryScreenPropTypes, JournalEntryScreenState> {
 
@@ -91,12 +102,13 @@ class JournalEntryScreen extends React.Component<JournalEntryScreenPropTypes, Jo
     super(props)
 
 
-    const filteredJournalEntries = filterJournalEntries(props.journal, props.allJournalEntries)
+    const filteredEntries = filterJournalEntries(props.journal, props.allJournalEntries)
     
 
     const dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.timestamp !== r2.timestamp})
     this.state = {
-      dataSource: dataSource.cloneWithRows(filteredJournalEntries)
+      filteredEntries,
+      dataSource: dataSource.cloneWithRows(filteredEntries)
     }
 
     // Javascript bindings to this yo
@@ -104,8 +116,29 @@ class JournalEntryScreen extends React.Component<JournalEntryScreenPropTypes, Jo
 
   }
 
+  scollLocation = (width, height) => {
+    // Get index where the Currently Located Journal Exists
+    const fe = this.state.filteredEntries
+    console.log(this.refs.ListView.scrollProperties)
+    const ListViewLenght = this.refs.ListView.scrollProperties.contentLength
+    // Get an average of the rows. Probably not the best but we can work on this later
+    const averageRowLength = ListViewLenght/fe.length
 
+    let index = 0;
+    for (var i = 0; i < fe.length; i++) {
+      var journalEntry = fe[i];
+      if(journalEntry.timestamp == this.props.journalEntryTimeStamp) {
+        index = i
+        break;
+      }
+    }
 
+    console.log(index, averageRowLength)
+
+    // Scroll to the relevant row
+    setTimeout(() => this.refs.ListView.scrollTo({y:(index*averageRowLength)}), 500)
+    
+  }
 
   renderHeader(plantName: string, timestamp: Moment.Moment) {
     return (
@@ -172,10 +205,12 @@ class JournalEntryScreen extends React.Component<JournalEntryScreenPropTypes, Jo
 
   render () {
     return (
-      <ListView 
+      <ListView
+        ref='ListView'
         style={styles.container}
         dataSource={this.state.dataSource}
         renderRow={this.renderJournal}
+        onContentSizeChange={this.scollLocation}
       />
     )
   }
@@ -184,6 +219,7 @@ class JournalEntryScreen extends React.Component<JournalEntryScreenPropTypes, Jo
 // JournalEntryScreen.defaultProps = mockData
 
 const mapStateToProps = (state: GJ.GLOBAL_STATE, {journalID}) => {
+  console.log("JournalEntry JournalID", journalID)
   return {
     allJournalEntries: state.journalEntries,
     journal: state.journals[journalID]

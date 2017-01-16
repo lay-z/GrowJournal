@@ -198,7 +198,11 @@ class Dashboard extends React.Component<any,any> {
     }
 
     return (
-        <TouchableHighlight key={card.timestamp.valueOf()} style={styles.touchableCard} onPress={() => NavigationActions.journalEntry(card.journalID)}>
+        <TouchableHighlight
+          key={card.timestamp.valueOf()}
+          style={styles.touchableCard}
+          onPress={() => NavigationActions.journalEntry({journalID: card.journalID, journalEntryTimeStamp: card.timestamp})}
+        >
           <View style={styles.card}>
             {this.renderCardHeader(heading, card.timestamp)}
             <IconWithTextRow humidity={card.humidity} temperature={card.temperature} ph={card.ph} warnings={card.warnings} />
