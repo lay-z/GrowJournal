@@ -1,8 +1,0 @@
-{
-  "resolution": "main",
-  "tree": {
-    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/6d0b399f51eb8837f8ad2c4b1e040690f7adef47/seamless-immutable/index.d.ts",
-    "raw": "registry:dt/seamless-immutable#6.1.3+20161103015415",
-    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/6d0b399f51eb8837f8ad2c4b1e040690f7adef47/seamless-immutable/index.d.ts"
-  }
-}
