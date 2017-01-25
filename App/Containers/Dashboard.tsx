@@ -176,10 +176,21 @@ class Dashboard extends React.Component<any,any> {
     )
   }
 
-  renderCardHeader(heading: String, timestamp: Moment.Moment) {
+  renderCardHeader(name: String, state:plantState, startDate: Moment.Moment, timestamp: Moment.Moment) {
+    const timeSinceStart: string = startDate.from(timestamp, true);
+    const heading: string = name +  ' - ' + timeSinceStart
+    
+    let src;
+    if (state == plantState.flowering) {
+      src = Images.flowerFilled
+    } else {
+      src = Images.leafFilled
+    }
+
     return (
       <View style={styles.cardHeaderRow}>
-        <Text style={styles.cardHeading}> {heading} </Text>
+        <Text style={styles.cardHeading}>{heading}</Text>
+        <Image source={src} style={styles.cardHeadingPlantState} />
         <Text style={styles.cardHeadingTime}> {this.getTimeString(timestamp)} </Text>
       </View>
     )
@@ -187,8 +198,6 @@ class Dashboard extends React.Component<any,any> {
   }
 
   renderCard(card: card) {
-    const timeSinceStart = card.startDate.fromNow(true);
-    const heading: string = card.name +  ' - ' + timeSinceStart + ' ' + card.state
 
     const details = {
       humitiy: card.humidity,
@@ -204,7 +213,7 @@ class Dashboard extends React.Component<any,any> {
           onPress={() => NavigationActions.journalEntry({journalID: card.journalID, journalEntryTimeStamp: card.timestamp})}
         >
           <View style={styles.card}>
-            {this.renderCardHeader(heading, card.timestamp)}
+            {this.renderCardHeader(card.name, card.state, card.startDate, card.timestamp)}
             <IconWithTextRow humidity={card.humidity} temperature={card.temperature} ph={card.ph} warnings={card.warnings} />
             <Text style={styles.comments}>
               {card.comments}

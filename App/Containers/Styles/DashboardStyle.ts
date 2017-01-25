@@ -36,6 +36,11 @@ export default StyleSheet.create({
   cardHeadingTime: {
     textAlignVertical: 'center'
   } as React.TextStyle,
+  cardHeadingPlantState: {
+    height: Metrics.icons.small,
+    width: Metrics.icons.small,
+    alignSelf: 'center'
+  } as React.ImageStyle,
   cardHeaderRow: {
     height: 200/3,
     margin: Metrics.baseMargin,
