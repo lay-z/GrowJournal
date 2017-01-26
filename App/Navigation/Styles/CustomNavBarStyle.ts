@@ -14,14 +14,16 @@ export default {
     // justifyContent: 'space-between'
   },
   title: {
-    flex: 0,
+    // flex: 0,
     textAlign: 'center',
     color: Colors.snow,
     marginTop: 0,
     marginBottom: 0,
     backgroundColor: Colors.transparent,
     fontWeight: 'bold',
-    fontSize: Fonts.size.navBarHeader
+    fontSize: Fonts.size.navBarHeader,
+    width: Metrics.screenWidth-100,
+    alignSelf: 'center'
   },
   logo: {
     alignSelf: 'center',

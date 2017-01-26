@@ -12,15 +12,12 @@ export default StyleSheet.create({
     marginTop: Metrics.navBarHeight,
     backgroundColor: Colors.background
   } as React.ViewStyle,
-  card: {
-    flex: 1,
-    backgroundColor: Colors.snow,
-    flexDirection: 'column',
-    // justifyContent: 'space'
-    // marginRight: Metrics.doubleBaseMargin,
-    // marginLeft: Metrics.doubleBaseMargin,
+  card: Object.assign({}, ApplicationStyles.card, {
+    justifyContent: "space-between",
+    marginRight: 0,
+    marginLeft: 0,
     elevation: 10
-  } as React.ViewStyle,
+  } as React.ViewStyle) as React.ViewStyle,
   touchableCard: {
     margin: Metrics.baseMargin,
     marginRight: Metrics.doubleBaseMargin,

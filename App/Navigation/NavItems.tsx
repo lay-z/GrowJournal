@@ -14,6 +14,10 @@ const openDrawer = () => {
   })
 }
 
+const newPlant =() => {
+  NavigationActions.newPlantScreen();
+}
+
 export default {
   backButton () {
     return (
@@ -31,6 +35,18 @@ export default {
     return (
       <TouchableOpacity onPress={openDrawer}>
         <Icon name='bars'
+          size={Metrics.icons.medium}
+          color={Colors.snow}
+          style={styles.navButtonLeft}
+        />
+      </TouchableOpacity>
+    )
+  },
+
+  newPlant () {
+    return (
+      <TouchableOpacity onPress={newPlant}>
+        <Icon name='plus'
           size={Metrics.icons.medium}
           color={Colors.snow}
           style={styles.navButtonLeft}

@@ -15,7 +15,7 @@ export default {
     paddingTop: 0,
     paddingHorizontal: 5,
     backgroundColor: Colors.navBarBackground
-  },
+  } as React.ViewStyle,
   title: {
     textAlign: 'center',
     color: Colors.snow,
@@ -23,8 +23,10 @@ export default {
     marginBottom: 0,
     backgroundColor: Colors.transparent,
     fontWeight: 'bold',
-    fontSize: Fonts.size.navBarHeader
-  },
+    fontSize: Fonts.size.navBarHeader,
+    width: 0,
+    alignSelf: 'center'
+  } as React.ViewStyle,
   leftButton: {
     tintColor: Colors.snow
   },

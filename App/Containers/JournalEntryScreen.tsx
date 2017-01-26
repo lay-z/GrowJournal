@@ -21,36 +21,6 @@ import { plantState } from '../Types/enums'
 
 
 
-const mockData: JournalEntryScreenPropTypes = {
-  journalEntries: [
-      {
-          actions: ["watered"],
-          name: "Og Kush",
-          comments: "Looks like growth is going well. Inshalah we shall be flowering soon :D here is exta long comment",
-          timestamp: Moment("2016-12-07 09:30"),
-          state: plantState.flowering,
-          temperature: 25,
-          humidity: 90,
-          warnings: [],
-          ph: 5.6,
-          pictures: [Images.weed1, Images.weed2],
-          journalID: "123456789"
-      },{
-          actions: ["watered"],
-          name: "Og Kush",
-          comments: "Looks like it might be about to flower",
-          timestamp: Moment("2016-11-28 16:30"),
-          state: plantState.vegetative,
-          temperature: 30,
-          humidity: 60,
-          warnings: [],
-          ph: 5.6,
-          pictures: [Images.weed6],
-          journalID: "123456789"
-      }
-  ],
-  journal: null
-}
 
 type JournalEntryDic = {[id: string]: GJ.JournalEntry}
 
@@ -96,7 +66,7 @@ const filterJournalEntries = (journal: GJ.Journal, journalEntries: JournalEntryD
 
 class JournalEntryScreen extends React.Component<JournalEntryScreenPropTypes, JournalEntryScreenState> {
 
-  public static defaultProps: JournalEntryScreenPropTypes = mockData
+  // public static defaultProps: JournalEntryScreenPropTypes
 
   constructor (props) {
     super(props)

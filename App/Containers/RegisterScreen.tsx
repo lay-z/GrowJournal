@@ -16,13 +16,25 @@ import LoginActions from '../Redux/LoginRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import I18n from 'react-native-i18n'
 
-type RegisterScreenProps = {
+interface RegisterScreenProps {
   dispatch: () => any,
   fetching: boolean,
   attemptLogin: () => void
 }
 
-class RegisterScreen extends React.Component {
+interface RegisterScreenState {
+  emailAddress: string,
+  password: string,
+  confirmPassword: string,
+  name: string,
+
+  visibleHeight: number,
+  topLogo: {
+    width: number
+  }
+}
+
+class RegisterScreen extends React.Component<RegisterScreenProps, RegisterScreenState> {
 
   props: RegisterScreenProps
 
@@ -75,7 +87,7 @@ class RegisterScreen extends React.Component {
     this.keyboardDidHideListener.remove()
   }
 
-  keyboardDidShow = (e) => {
+  keyboardDidShow = (e: Event) => {
     // Animation types easeInEaseOut/linear/spring
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
     let newSize = Metrics.screenHeight - e.endCoordinates.height

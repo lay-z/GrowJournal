@@ -19,5 +19,10 @@ export default StyleSheet.create({
     marginTop: Metrics.section,
     marginRight: Metrics.baseMargin,
     alignItems: 'center'
+  },
+  navButtonLeft: {
+    ...navButton,
+    // height: Metrics.navBarHeight
+    // marginLeft: Metrics.baseMargin
   }
 })

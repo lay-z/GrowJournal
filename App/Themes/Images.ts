@@ -21,7 +21,9 @@ const images = {
   weed3: require('../Images/weed3.jpg'),
   weed4: require('../Images/weed4.jpg'),
   weed5: require('../Images/weed5.jpg'),
-  weed6: require('../Images/weed6.jpg')
+  weed6: require('../Images/weed6.jpg'),
+  pottedPlant: require('../Images/potted_plant.png'),
+  handPlanting: require('../Images/hand_planting.png')
 }
 
 export default images

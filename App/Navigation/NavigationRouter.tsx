@@ -25,6 +25,8 @@ import APITestingScreen from '../Containers/APITestingScreen'
 import ThemeScreen from '../Containers/ThemeScreen'
 import DeviceInfoScreen from '../Containers/DeviceInfoScreen'
 import JournalEntryScreen from '../Containers/JournalEntryScreen'
+import NewPlantScreen from '../Containers/NewPlantScreen'
+import CreateJournalScreen from '../Containers/CreateJournalScreen'
 
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
@@ -34,10 +36,17 @@ class NavigationRouter extends Component {
   render () {
     return (
       <Router>
-        <Scene key='drawer' component={NavigationDrawer} open={false}>
-          <Scene key='drawerChildrenWrapper' renderTitle={renderTitle} navigationBarStyle={Styles.navBar} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
+        {/*<Scene key='drawer' component={NavigationDrawer} open={false}>*/}
+          <Scene key='drawerChildrenWrapper'
+            renderTitle={renderTitle}
+            navigationBarStyle={Styles.navBar}
+            leftButtonIconStyle={Styles.leftButton}
+            rightButtonTextStyle={Styles.rightButton}
+          >
             <Scene key='login' component={LoginScreen} title='Login'/>
-            <Scene initial key='dashboard' component={Dashboard} title='Dashboard'/>
+            <Scene initial key='dashboard' component={Dashboard} title='Dashboard' renderLeftButton={NavItems.newPlant}/>
+            <Scene key='newPlantScreen' component={NewPlantScreen} title='New Plant'/>
+            <Scene key='createJournalScreen' component={CreateJournalScreen} title='Create Plant'/>
             <Scene key='register' component={RegisterScreen} title='Register' />
             <Scene key='journalEntry' component={JournalEntryScreen} title='Journal Entry' />
             <Scene key='presentationScreen' component={PresentationScreen} title='Ignite' renderLeftButton={NavItems.hamburgerButton} />
@@ -54,7 +63,7 @@ class NavigationRouter extends Component {
             {/* Custom navigation bar example */}
             <Scene key='deviceInfo' component={DeviceInfoScreen} title='Device Info' />
           </Scene>
-        </Scene>
+        {/*</Scene>*/}
       </Router>
     )
   }

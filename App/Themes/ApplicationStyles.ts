@@ -71,7 +71,18 @@ const ApplicationStyles = {
     borderColor: Colors.ember,
     alignItems: 'center',
     textAlign: 'center'
-  }
+  },
+  card: {
+    flex: 1,
+    backgroundColor: Colors.snow,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    marginTop: 0,
+    marginBottom: 0,
+    marginRight: Metrics.doubleBaseMargin,
+    marginLeft: Metrics.doubleBaseMargin,
+    elevation: 10
+  } as React.ViewStyle,
 }
 
 export default ApplicationStyles

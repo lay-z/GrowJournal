@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Og Kush",
+        "startDate": "2016-10-08 08:00",
+        "type": "individual",
+        "plantMethod": "seed",
+        "medium": "hydroponic",
+        "intialComments": "Setting went well",
+        "id": "123456"
+    },
+    {
+        "name": "Purple Haze",
+        "startDate": "2016-11-13 08:00",
+        "type": "individual",
+        "plantMethod": "cutting",
+        "medium": "cocoqua",
+        "intialComments": "Looking Good",
+        "id": "345678"
+    }
+]

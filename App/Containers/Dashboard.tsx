@@ -25,63 +25,6 @@ interface card extends GJ.JournalEntry{
 
 type cards = Array<card>
 
-const Cards: cards = [
-      {
-        key: 1,
-        actions: ["watered"],
-        name: "Og Kush",
-        comments: "Looks like growth is going well. Inshalah we shall be flowering soon :D here is exta long comment",
-        timestamp: Moment("2016-12-07 09:30"),
-        state: plantState.flowering,
-        temperature: 25,
-        humidity: 90,
-        warnings: [],
-        ph: 5.6,
-        startDate: Moment("2016-10-08 08:00"),
-        pictures: [Images.weed1, Images.weed2]
-      },{
-        key: 2,
-        actions: ["pruned"],
-        name: "Purple Haze",
-        comments: "Needs to be careful with temperatures",
-        timestamp: Moment("2016-12-08 10:10"),
-        state: plantState.vegetative,
-        temperature: 56,
-        humidity: 50,
-        warnings: ["Super hot!"],
-        ph: 6.7,
-        startDate: Moment("2016-11-13 08:00"),
-        pictures: [Images.weed3]
-      },
-      {
-        key: 3,
-        actions: ["watered"],
-        name: "Purple Haze",
-        comments: "Might need more sunlight",
-        timestamp: Moment("2016-12-08 11:10"),
-        state: plantState.vegetative,
-        temperature: 56,
-        humidity: 45,
-        warnings: [],
-        ph: 4.5,
-        startDate: Moment("2016-11-13 08:00"),
-        pictures: [Images.weed4, Images.weed5]
-      },{
-        key: 4,
-        actions: ["watered"],
-        name: "Og Kush",
-        comments: "Looks like it might be about to flower",
-        timestamp: Moment("2016-11-28 16:30"),
-        state: plantState.vegetative,
-        temperature: 30,
-        humidity: 60,
-        warnings: [],
-        ph: 5.6,
-        startDate: Moment("2016-10-08 08:00"),
-        pictures: [Images.weed6]
-      }
-    ]
-
 const sortOutProps = (journalEntries, journals) => {
 
   const cards = []
