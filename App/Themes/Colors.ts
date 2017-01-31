@@ -20,7 +20,7 @@ const colors = {
   ember: 'rgba(164, 0, 48, 0.5)',
   fire: '#e73536',
   drawer: 'rgba(30, 30, 29, 0.95)',
-  navBarBackground: '#2E4057'
+  ironBlue: '#2E4057'
 }
 
 export default colors

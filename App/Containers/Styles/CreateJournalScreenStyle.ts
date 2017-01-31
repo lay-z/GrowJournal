@@ -16,13 +16,44 @@ export default StyleSheet.create({
   row: {
     paddingVertical: Metrics.doubleBaseMargin,
     paddingHorizontal: Metrics.doubleBaseMargin,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1 
+  } as React.ViewStyle,
+  commentRow: {
+    paddingVertical: Metrics.doubleBaseMargin,
+    paddingHorizontal: Metrics.doubleBaseMargin,
+    flex: 2,
+    flexDirection: 'column',
+    alignItems: 'stretch'
   } as React.ViewStyle,
   label: {
-    color: Colors.charcoal
+    flex: 1,
+    color: Colors.ironBlue
   } as React.TextStyle,
   textInput: {
+    flex: 2,
+    paddingRight: 30,
+    backgroundColor: Colors.snow,
     height: 40,
     color: Colors.coal
   } as React.TextStyle,
+  picker: {
+    flex: 2,
+    paddingRight: 30,
+    backgroundColor: Colors.snow,
+    height: 40,
+    color: Colors.coal
+  } as React.ViewStyle,
+  buttonContainer: {
+    flex: 1,
+    paddingVertical: Metrics.doubleBaseMargin,
+    paddingHorizontal: Metrics.doubleBaseMargin,
+    // backgroundColor: Colors.snow,
+    // height: 40,
+    // color: Colors.ironBlue
+  } as React.ViewStyle,
+
 })
+
+export const buttonColour = Colors.ironBlue

@@ -14,7 +14,7 @@ export default {
     height: Metrics.navBarHeight,
     paddingTop: 0,
     paddingHorizontal: 5,
-    backgroundColor: Colors.navBarBackground
+    backgroundColor: Colors.ironBlue
   } as React.ViewStyle,
   title: {
     textAlign: 'center',

@@ -8,7 +8,7 @@ export default {
     right: 0,
     height: Metrics.navBarHeight,
     paddingHorizontal: Metrics.baseMargin,
-    backgroundColor: Colors.navBarBackground,
+    backgroundColor: Colors.ironBlue,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between'

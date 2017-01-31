@@ -31,7 +31,8 @@ export declare namespace GJ {
         plantMethod: "seed" | "cutting",
         medium: "hydroponic" | "cocoqua" // ways of growing the herb
         initialComments: string,
-        numberOfPlants?: number // Only if the journal is a btatch
+        numberOfPlants?: number, // Only if the journal is a batch
+        comments: string
     }
 
     interface GLOBAL_STATE {
