@@ -19,10 +19,13 @@ class NewPlantScreen extends React.Component<any, any> {
   // }
 
   renderCard(type, iconSrc) {
+    const batch: Boolean = type === "Batch"
+    const title: string = batch ? "New Batch" : "New Plant"
+    
     return (
       <TouchableHighlight
         style={styles.touchableCard}
-        onPress={() => NavigationActions.createJournalScreen()}
+        onPress={() => NavigationActions.createJournalScreen({batch, title})}
       >
         <View style={styles.card}>
           <Image source={iconSrc} style={styles.plantTypeIcon} />

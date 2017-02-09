@@ -4,7 +4,7 @@ import React from 'react'
 import { ScrollView, Text, View, TextInput, Picker, Button } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import JournalActions from '../Redux/JournalsRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
 // Extra dependencies
@@ -18,35 +18,56 @@ import styles, { buttonColour } from './Styles/CreateJournalScreenStyle'
 import { GJ } from '../Types/globals'
 
 interface CreateJournalScreenProps {
-  
+  batch?: Boolean // is this a batch or not
+  createJournal: (journal: GJ.Journal) => null
 }
 
 interface CreateJournalScreenState extends GJ.Journal {
-  disableSubmit?: Boolean
+  disableSubmit?: Boolean,
 }
 
 class CreateJournalScreen extends React.Component<CreateJournalScreenProps, CreateJournalScreenState> {
 
   constructor (props) {
     super(props)
+    const startDate = Moment()
     this.state = {
+      id: String(startDate.valueOf()),
       name: '',
-      startDate: Moment(),
-      plantMethod: '',
-      medium: '',
+      startDate,
+      plantMethod: 'seed',
+      medium: 'hydroponic',
       comments: '',
-      disableSubmit: true
+      disableSubmit: true, 
+      plantCount: 1,
+      type: this.props.batch ? "batch" : "individual"
     }
+
   }
 
   handleInput(fieldName: string, value: any) {
     const disableSubmit = this.anySectionEmpty()
-    console.log("disabledSubmit", disableSubmit)
     this.setState({[fieldName]: value, disableSubmit})
   }
 
+  handleNumberInput(fieldName: string, value: string) {
+    console.log(value)
+    if (Number(value + 1)) {
+      this.handleInput(fieldName, Number(value))
+    } else {
+      alert("You have typed in a non number in number field")
+    }
+  }
+
   handleSubmit(e: Event) {
-    alert(e.timeStamp)
+    console.log("state in handleSubmit", this.state)
+    const JournalMembers = ["id", "name", "startDate", "plantCount", "plantMethod", "medium", "comments", "type"]
+    let journal: GJ.Journal = {};
+    JournalMembers.forEach(((name) => journal[name] = this.state[name]))
+
+    console.log(journal)
+
+    this.props.createJournal(journal)
   }
 
   anySectionEmpty() {
@@ -55,7 +76,7 @@ class CreateJournalScreen extends React.Component<CreateJournalScreenProps, Crea
       if(prev) return prev;
 
       // Check that the member is a string and empty
-      if (typeof this.state[name] === 'string') {
+      if (typeof this.state[name] === 'string' && name !== 'comments') {
         return this.state[name] === ''
       } else {
         return prev
@@ -65,7 +86,11 @@ class CreateJournalScreen extends React.Component<CreateJournalScreenProps, Crea
   }
 
   render () {
-    const {name, startDate, plantMethod, medium, comments, disableSubmit} = this.state
+    const {name, startDate, plantMethod, medium, comments, disableSubmit, plantCount} = this.state
+    const {batch} = this.props
+    console.log("Batch", batch)
+    const nameLabel = batch ? "Batch Name" : "Nick Name"
+    
     return (
       <ScrollView style={styles.container}>
         <View style={styles.form}>
@@ -86,7 +111,7 @@ class CreateJournalScreen extends React.Component<CreateJournalScreenProps, Crea
               placeholder={"This is todays date"} />
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>{"Nick Name:"}</Text>
+            <Text style={styles.label}>{`${nameLabel}:`}</Text>
             <TextInput
               ref='name'
               style={styles.textInput}
@@ -127,6 +152,24 @@ class CreateJournalScreen extends React.Component<CreateJournalScreenProps, Crea
               <Picker.Item label="Cocoqua" value="cocoqua" />
             </Picker>
           </View>
+          {(batch) ?
+          <View style={styles.row}>
+            <Text style={styles.label}>{`Number Of plants`}</Text>
+            <TextInput
+              ref='plantCount'
+              style={styles.textInput}
+              value={String(plantCount)}
+              editable={true}
+              keyboardType='numeric'
+              returnKeyType='next'
+              autoCapitalize='none'
+              autoCorrect={false}
+              onChangeText={(text) => this.handleNumberInput("plantCount", text)}
+              underlineColorAndroid='transparent'
+              // onSubmitEditing={() => this.refs.emailAddress.focus()}
+              placeholder={"Type in your name here"} />
+          </View>
+            : null}
           <View style={styles.commentRow}>
             <Text style={[styles.label, {marginBottom: 10}]}>{"Additional Comments:"}</Text>
             <TextInput
@@ -145,7 +188,7 @@ class CreateJournalScreen extends React.Component<CreateJournalScreenProps, Crea
               placeholder={"Type in your comments here"} />
           </View>
           <View style={styles.buttonContainer}>
-            <Button title="Submit" onPress={this.handleSubmit} color={buttonColour} disabled={this.anySectionEmpty()}/>
+            <Button title="Submit" onPress={this.handleSubmit.bind(this)} color={buttonColour} disabled={this.anySectionEmpty()}/>
           </View>
         </View>
       </ScrollView>
@@ -160,6 +203,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    createJournal: (journal: GJ.Journal) => {
+      console.log("Added journal to state!")
+      dispatch(JournalActions.addJournal(journal))
+    }
   }
 }
 
