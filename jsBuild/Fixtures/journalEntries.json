@@ -1,0 +1,62 @@
+[
+    {
+        "actions": ["watered"],
+        "comments": "Looks like growth is going well. Inshalah we shall be flowering soon :D here is exta long comment",
+        "timestamp": "2016-12-07 09:30",
+        "state": 0,
+        "temperature": 25,
+        "humidity": 90,
+        "warnings": [],
+        "ph": 5.6,
+        "pictures": ["weed1", "weed2"],
+        "journalID": "123456"
+    },{
+        "actions": ["pruned"],
+        "comments": "Needs to be careful with temperatures",
+        "timestamp": "2016-11-28 16:30",
+        "state": 1,
+        "temperature": 56,
+        "humidity": 50,
+        "warnings": ["Super hot!"],
+        "ph": 6.7,
+        "pictures": ["weed3"],
+        "journalID": "345678"
+
+    },
+    {
+        "actions": ["watered"],
+        "comments": "Might need more sunlight",
+        "timestamp": "2016-12-08 11:10",
+        "state": 0,
+        "temperature": 56,
+        "humidity": 45,
+        "warnings": [],
+        "ph": 4.5,
+        "pictures": ["weed4", "weed5"],
+        "journalID": "123456"
+        
+    },{
+        "actions": ["watered"],
+        "comments": "Looks like it might be about to flower",
+        "timestamp": "2016-12-08 10:10",
+        "state": 1,
+        "temperature": 30,
+        "humidity": 60,
+        "warnings": [],
+        "ph": 5.6,
+        "pictures": ["weed6"],
+        "journalID": "345678"
+    },{
+        "actions": ["watered"],
+        "comments": "Might need more sunlight",
+        "timestamp": "2016-12-06 10:10",
+        "state": 1,
+        "temperature": 56,
+        "humidity": 45,
+        "warnings": ["Close to flowering"],
+        "ph": 7.5,
+        "pictures": [],
+        "journalID": "123456"
+        
+    }
+]

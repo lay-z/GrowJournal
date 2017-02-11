@@ -1,0 +1,1 @@
+{"version":3,"file":"OpenScreenRedux.js","sourceRoot":"","sources":["../../App/Redux/OpenScreenRedux.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,MAAM,YAAY,CAAA;AAE1C,2DAA2D;AAE3D,MAAM,EAAE,KAAK,EAAE,QAAQ,EAAE,GAAG,aAAa,CAAC;IACxC,UAAU,EAAE,CAAC,QAAQ,EAAE,SAAS,CAAC;CAClC,CAAC,CAAA;AAEF,MAAM,CAAC,MAAM,eAAe,GAAG,KAAK,CAAA;AACpC,eAAe,QAAQ,CAAA"}

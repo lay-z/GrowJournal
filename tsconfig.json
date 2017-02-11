@@ -7,7 +7,7 @@
         "noImplicitAny": false,
         "sourceMap": true,
         "rootDir": "App",
-        "outDir": "build",
+        "outDir": "jsBuild",
         "experimentalDecorators": true,
         "preserveConstEnums": true
     },
@@ -19,7 +19,7 @@
 	"exclude": [
 		"index.android.js",
 		"index.ios.js",
-		"build",
+		"jsBuild",
 		"node_modules"
 	],
     "compileOnSave": false
