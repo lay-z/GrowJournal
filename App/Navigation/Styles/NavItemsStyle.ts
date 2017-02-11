@@ -20,7 +20,7 @@ export default StyleSheet.create({
     marginRight: Metrics.baseMargin,
     alignItems: 'center'
   },
-  navButtonLeft: {
+  navButton: {
     ...navButton,
     // height: Metrics.navBarHeight
     // marginLeft: Metrics.baseMargin

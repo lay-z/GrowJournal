@@ -27,12 +27,13 @@ import DeviceInfoScreen from '../Containers/DeviceInfoScreen'
 import JournalEntryScreen from '../Containers/JournalEntryScreen'
 import NewPlantScreen from '../Containers/NewPlantScreen'
 import CreateJournalScreen from '../Containers/CreateJournalScreen'
+import CreateJournalEntryScreen from '../Containers/CreateJournalEntryScreen'
 
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
 ***************************/
 // navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}
-class NavigationRouter extends Component {
+class NavigationRouter extends Component<any, any> {
   render () {
     return (
       <Router>
@@ -44,11 +45,12 @@ class NavigationRouter extends Component {
             rightButtonTextStyle={Styles.rightButton}
           >
             <Scene key='login' component={LoginScreen} title='Login'/>
-            <Scene initial key='dashboard' component={Dashboard} title='Dashboard' renderLeftButton={NavItems.newPlant}/>
+            <Scene key='dashboard' component={Dashboard} title='Dashboard' renderLeftButton={NavItems.newPlant}/>
             <Scene key='newPlantScreen' component={NewPlantScreen} title='New Plant'/>
             <Scene key='createJournalScreen' component={CreateJournalScreen} title='Create Plant'/>
+            <Scene initial key='createJournalEntryScreen' component={CreateJournalEntryScreen} title='New Entry'/>
             <Scene key='register' component={RegisterScreen} title='Register' />
-            <Scene key='journalEntry' component={JournalEntryScreen} title='Journal Entry' />
+            <Scene key='journalEntry' component={JournalEntryScreen} title='Journal Entry' renderRightButton={NavItems.newJournal}/>
             <Scene key='presentationScreen' component={PresentationScreen} title='Ignite' renderLeftButton={NavItems.hamburgerButton} />
             <Scene key='componentExamples' component={AllComponentsScreen} title='Components' />
             <Scene key='usageExamples' component={UsageExamplesScreen} title='Usage' rightTitle='Example' onRight={() => window.alert('Example Pressed')} />

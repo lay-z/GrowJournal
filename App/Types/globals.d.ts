@@ -9,7 +9,6 @@ export declare namespace GJ {
 
     interface JournalEntry {
         key?: number
-        name: string,
         comments: string,
         actions: Array<actions> ,
         timestamp: Moment.Moment,
@@ -32,7 +31,8 @@ export declare namespace GJ {
         medium: "hydroponic" | "cocoqua" // ways of growing the herb
         numberOfPlants?: number, // Only if the journal is a batch
         comments: string,
-        plantCount: number
+        plantCount: number,
+        state: plantState
     }
 
     interface GLOBAL_STATE {

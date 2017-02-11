@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { ScrollView, Text, View, TextInput, Picker, Button } from 'react-native'
+import MultipleChoice from 'react-native-multiple-choice'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 import JournalActions from '../Redux/JournalsRedux'
@@ -11,38 +12,40 @@ import { Actions as NavigationActions } from 'react-native-router-flux'
 import Moment from 'moment'
 
 // Styles
-import styles, { buttonColour } from './Styles/CreateJournalScreenStyle'
+import styles, { buttonColour } from './Styles/CreateJournalEntryScreenStyle'
 
 
 // Global Types
 import { GJ } from '../Types/globals'
 import { plantState } from '../Types/enums'
 
-interface CreateJournalScreenProps {
-  batch?: Boolean // is this a batch or not
-  createJournal: (journal: GJ.Journal) => null
+const journals: GJ.Journal[] = require('../Fixtures/journals')
+
+interface CreateJournalEntryScreenProps {
+  createJournalEntry: (journalEntry: GJ.JournalEntry) => null
+  parentJournal: GJ.Journal
 }
 
-interface CreateJournalScreenState extends GJ.Journal {
+interface CreateJournalEntryScreenState extends GJ.JournalEntry {
   disableSubmit?: Boolean,
 }
 
-class CreateJournalScreen extends React.Component<CreateJournalScreenProps, CreateJournalScreenState> {
+class CreateJournalEntryScreen extends React.Component<CreateJournalEntryScreenProps, CreateJournalEntryScreenState> {
 
   constructor (props) {
     super(props)
     const startDate = Moment()
     this.state = {
-      id: String(startDate.valueOf()),
-      name: '',
-      startDate,
-      plantMethod: 'seed',
-      medium: 'hydroponic',
-      comments: '',
+      timestamp: Moment(),
+      ph: 0,
+      humidity: 0,
+      temperature: 0,
+      warnings: [],
       disableSubmit: true, 
-      plantCount: 1,
-      type: this.props.batch ? "batch" : "individual",
-      state: plantState.vegetative
+      actions: [],
+      journalID: this.props.parentJournal.id,
+      comments: '',
+      state: this.props.parentJournal.state
     }
 
   }
@@ -63,13 +66,17 @@ class CreateJournalScreen extends React.Component<CreateJournalScreenProps, Crea
 
   handleSubmit(e: Event) {
     console.log("state in handleSubmit", this.state)
-    const JournalMembers = ["id", "name", "startDate", "plantCount", "plantMethod", "medium", "comments", "type"]
-    let journal: GJ.Journal = {};
-    JournalMembers.forEach(((name) => journal[name] = this.state[name]))
+    const JournalEtnryMembers = [
+      "timestamp", "ph", "humidity", "temperature", "warnings",
+      "disableSubmit", "actions", "journalID", "comments", "state"
+    ]
 
-    console.log(journal)
+    let journalEntry: GJ.JournalEntry = {};
+    JournalEtnryMembers.forEach(((name) => journalEntry[name] = this.state[name]))
 
-    this.props.createJournal(journal)
+    console.log(journalEntry)
+
+    this.props.createJournalEntry(journalEntry)
   }
 
   anySectionEmpty() {
@@ -88,11 +95,27 @@ class CreateJournalScreen extends React.Component<CreateJournalScreenProps, Crea
   }
 
   render () {
-    const {name, startDate, plantMethod, medium, comments, disableSubmit, plantCount} = this.state
-    const {batch} = this.props
-    console.log("Batch", batch)
-    const nameLabel = batch ? "Batch Name" : "Nick Name"
+
+    function*generatePhValues() { 
+      let cur = 0;
+      while(cur < 14){ 
+        cur = cur + 0.1
+        cur = Number(cur.toFixed(1))
+        yield cur
+      }
+      return
+    }
+
+    const possibleActions: GJ.actions[] = ["watered","topped","transplanted","changedReservoir","pruned"]
+
+    let phValues = generatePhValues()
     
+    
+    const {
+      timestamp,ph,humidity,temperature,warnings,
+      disableSubmit,actions,journalID,comments,state 
+    } = this.state
+
     return (
       <ScrollView style={styles.container}>
         <View style={styles.form}>
@@ -101,7 +124,7 @@ class CreateJournalScreen extends React.Component<CreateJournalScreenProps, Crea
             <TextInput
               ref='date'
               style={styles.textInput}
-              value={startDate.format('DD/MM/YYYY HH:mm')}
+              value={timestamp.format('DD/MM/YYYY HH:mm')}
               editable={false}
               keyboardType='default'
               returnKeyType='next'
@@ -113,65 +136,79 @@ class CreateJournalScreen extends React.Component<CreateJournalScreenProps, Crea
               placeholder={"This is todays date"} />
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>{`${nameLabel}:`}</Text>
+            <Text style={styles.label}>{"Nickname"}</Text>
             <TextInput
               ref='name'
               style={styles.textInput}
-              value={name}
-              editable={true}
+              value={this.props.parentJournal.name}
+              editable={false}
               keyboardType='default'
               returnKeyType='next'
               autoCapitalize='none'
               autoCorrect={false}
               onChangeText={(text) => this.handleInput("name", text)}
-              underlineColorAndroid='transparent'
               // onSubmitEditing={() => this.refs.emailAddress.focus()}
-              placeholder={"Type in your name here"} />
+              underlineColorAndroid='transparent'/>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>{"Seed/Cutting:"}</Text>
+            <Text style={styles.label}>{"Ph:"}</Text>
             <Picker
-              ref='plantMethod'
+              ref='ph'
               style={styles.picker}
-              selectedValue={this.state.plantMethod}
-              onValueChange={(plantMethod) => this.handleInput("plantMethod", plantMethod)}
+              selectedValue={this.state.ph}
+              onValueChange={(ph) => this.handleInput("ph", ph)}
               mode="dropdown"
             >
-              <Picker.Item label="Seed" value="seed" />
-              <Picker.Item label="Cutting" value="cutting" />
+              {[...phValues].map(ph => (<Picker.Item label={String(ph)} value={ph} key={ph}/>))}
             </Picker>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>{"Grow medium:"}</Text>
-            <Picker
-              ref='medium'
-              style={styles.picker}
-              selectedValue={this.state.medium}
-              onValueChange={(medium) => this.handleInput("medium", medium)}
-              mode="dropdown"
-            >
-              <Picker.Item label="Hydroponic" value="hydroponic" />
-              <Picker.Item label="Cocoqua" value="cocoqua" />
-            </Picker>
-          </View>
-          {(batch) ?
-          <View style={styles.row}>
-            <Text style={styles.label}>{`Number Of plants`}</Text>
+            <Text style={styles.label}>{`Temperature`}</Text>
             <TextInput
-              ref='plantCount'
+              ref='temperature'
               style={styles.textInput}
-              value={String(plantCount)}
+              value={String(temperature)}
               editable={true}
               keyboardType='numeric'
               returnKeyType='next'
               autoCapitalize='none'
               autoCorrect={false}
-              onChangeText={(text) => this.handleNumberInput("plantCount", text)}
+              onChangeText={(temperature) => this.handleNumberInput("temperature", temperature)}
               underlineColorAndroid='transparent'
               // onSubmitEditing={() => this.refs.emailAddress.focus()}
               placeholder={"Type in your name here"} />
           </View>
-            : null}
+          <View style={styles.row}>
+            <Text style={styles.label}>{`Humidity`}</Text>
+            <TextInput
+              ref='humidity'
+              style={styles.textInput}
+              value={String(humidity)}
+              editable={true}
+              keyboardType='numeric'
+              returnKeyType='next'
+              autoCapitalize='none'
+              autoCorrect={false}
+              onChangeText={(humidity) => this.handleNumberInput("humidity", humidity)}
+              underlineColorAndroid='transparent'
+              // onSubmitEditing={() => this.refs.emailAddress.focus()}
+              placeholder={"Type in your name here"} />
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>{"Actions Taken:"}</Text>
+            <MultipleChoice
+              options={[
+              'Lorem ipsum dolor sit',
+              'Lorem ipsum',
+              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+              'Lorem ipsum dolor sit amet, consetetur',
+              'Lorem ipsum dolor'
+              ]}
+              selectedOptions={['Lorem ipsum']}
+              maxSelectedOptions={2}
+              onSelection={(option)=>alert(option + ' was selected!')}
+            />
+          </View>
           <View style={styles.commentRow}>
             <Text style={[styles.label, {marginBottom: 10}]}>{"Additional Comments:"}</Text>
             <TextInput
@@ -200,16 +237,17 @@ class CreateJournalScreen extends React.Component<CreateJournalScreenProps, Crea
 
 const mapStateToProps = (state) => {
   return {
+    parentJournal: journals[0]
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createJournal: (journal: GJ.Journal) => {
-      console.log("Added journal to state!")
-      dispatch(JournalActions.addJournal(journal))
+    createJournalEntry: (journalEntry: GJ.JournalEntry) => {
+      // console.log("Added journal to state!")
+      // dispatch(JournalActions.addJournalEntry(journal))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateJournalScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateJournalEntryScreen)

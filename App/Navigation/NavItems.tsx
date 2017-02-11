@@ -49,13 +49,25 @@ export default {
         <Icon name='plus'
           size={Metrics.icons.medium}
           color={Colors.snow}
-          style={styles.navButtonLeft}
+          style={styles.navButton}
         />
       </TouchableOpacity>
     )
   },
 
-  searchButton (callback: Function) {
+  newJournal() {
+    return (
+      <TouchableOpacity onPress={() => alert("pressed")}>
+        <Icon name='plus'
+          size={Metrics.icons.medium}
+          color={Colors.snow}
+          style={styles.navButton}
+        />
+      </TouchableOpacity>
+    )
+  },
+
+  searchButton (callback: () => null) {
     return (
       <TouchableOpacity onPress={callback}>
         <Icon name='search'
