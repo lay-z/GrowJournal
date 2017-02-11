@@ -24,6 +24,7 @@ class CreateJournalEntryScreen extends React.Component {
             comments: '',
             state: this.props.parentJournal.state
         };
+        this.actions = ["watered", "topped", "transplanted", "changedReservoir", "pruned"];
     }
     handleInput(fieldName, value) {
         const disableSubmit = this.anySectionEmpty();
@@ -105,13 +106,7 @@ class CreateJournalEntryScreen extends React.Component {
                         placeholder: "Type in your name here" })),
                 React.createElement(View, { style: styles.row },
                     React.createElement(Text, { style: styles.label }, "Actions Taken:"),
-                    React.createElement(MultipleChoice, { options: [
-                            'Lorem ipsum dolor sit',
-                            'Lorem ipsum',
-                            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
-                            'Lorem ipsum dolor sit amet, consetetur',
-                            'Lorem ipsum dolor'
-                        ], selectedOptions: ['Lorem ipsum'], maxSelectedOptions: 2, onSelection: (option) => alert(option + ' was selected!') })),
+                    React.createElement(MultipleChoice, { options: this.actions, selectedOptions: ['Lorem ipsum'], maxSelectedOptions: 2, onSelection: (option) => alert(option + ' was selected!') })),
                 React.createElement(View, { style: styles.commentRow },
                     React.createElement(Text, { style: [styles.label, { marginBottom: 10 }] }, "Additional Comments:"),
                     React.createElement(TextInput, { ref: 'comments', style: [styles.textInput], value: comments, editable: true, keyboardType: 'default', returnKeyType: 'next', autoCapitalize: 'none', autoCorrect: true, multiline: true, onChangeText: (text) => this.handleInput("comments", text), underlineColorAndroid: 'transparent', 

@@ -32,6 +32,8 @@ interface CreateJournalEntryScreenState extends GJ.JournalEntry {
 
 class CreateJournalEntryScreen extends React.Component<CreateJournalEntryScreenProps, CreateJournalEntryScreenState> {
 
+  actions: string[];
+
   constructor (props) {
     super(props)
     const startDate = Moment()
@@ -47,6 +49,7 @@ class CreateJournalEntryScreen extends React.Component<CreateJournalEntryScreenP
       comments: '',
       state: this.props.parentJournal.state
     }
+    this.actions = [ "watered","topped","transplanted","changedReservoir","pruned"]
 
   }
 
@@ -197,13 +200,7 @@ class CreateJournalEntryScreen extends React.Component<CreateJournalEntryScreenP
           <View style={styles.row}>
             <Text style={styles.label}>{"Actions Taken:"}</Text>
             <MultipleChoice
-              options={[
-              'Lorem ipsum dolor sit',
-              'Lorem ipsum',
-              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
-              'Lorem ipsum dolor sit amet, consetetur',
-              'Lorem ipsum dolor'
-              ]}
+              options={this.actions}
               selectedOptions={['Lorem ipsum']}
               maxSelectedOptions={2}
               onSelection={(option)=>alert(option + ' was selected!')}
