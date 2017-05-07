@@ -71,10 +71,8 @@ class JournalEntryScreen extends React.Component<JournalEntryScreenPropTypes, Jo
   constructor (props) {
     super(props)
 
-
     const filteredEntries = filterJournalEntries(props.journal, props.allJournalEntries)
     
-
     const dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1.timestamp !== r2.timestamp})
     this.state = {
       filteredEntries,
@@ -168,7 +166,7 @@ class JournalEntryScreen extends React.Component<JournalEntryScreenPropTypes, Jo
         />
         {this.renderActionsTaken(JournalEntry.actions)}
         {this.renderComments(JournalEntry.comments)}
-        {this.renderImageRow(JournalEntry.pictures)}
+        { JournalEntry.pictures ? this.renderImageRow(JournalEntry.pictures) : null}
       </View>
     )
   }

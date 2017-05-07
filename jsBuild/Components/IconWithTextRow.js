@@ -14,8 +14,8 @@ class IconWithTextRow extends React.Component {
             { imageSrc: Images.ph, info: String(this.props.ph) }
         ];
         // console.log(iconsWithText)
-        return (React.createElement(View, { style: [styles.iconRow, this.props.style] }, icons.map((iconText) => {
-            return React.createElement(IconWithText, { imageSrc: iconText.imageSrc, info: iconText.info, key: iconText.info });
+        return (React.createElement(View, { style: [styles.iconRow, this.props.style] }, icons.map((iconText, index) => {
+            return React.createElement(IconWithText, { imageSrc: iconText.imageSrc, info: iconText.info, key: String(index) });
         })));
     }
 }

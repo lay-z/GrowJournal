@@ -32,8 +32,8 @@ class IconWithTextRow extends React.Component<iconWithTextRowProps, null> {
     // console.log(iconsWithText)
     return (
       <View style={[styles.iconRow, this.props.style]}>
-        {icons.map((iconText: IconWithTextProps) => {
-          return <IconWithText imageSrc={ iconText.imageSrc} info={iconText.info} key={iconText.info}/>
+        {icons.map((iconText: IconWithTextProps, index: Number) => {
+          return <IconWithText imageSrc={ iconText.imageSrc} info={iconText.info} key={String(index)}/>
         })}
       </View>
     )

@@ -88,7 +88,7 @@ class JournalEntryScreen extends React.Component {
             React.createElement(IconWithTextRow, { temperature: JournalEntry.temperature, ph: JournalEntry.ph, humidity: JournalEntry.humidity, warnings: JournalEntry.warnings, style: styles.iconRow }),
             this.renderActionsTaken(JournalEntry.actions),
             this.renderComments(JournalEntry.comments),
-            this.renderImageRow(JournalEntry.pictures)));
+            JournalEntry.pictures ? this.renderImageRow(JournalEntry.pictures) : null));
     }
     render() {
         return (React.createElement(ListView, { ref: 'ListView', style: styles.container, dataSource: this.state.dataSource, renderRow: this.renderJournal, onContentSizeChange: this.scollLocation }));
