@@ -29,7 +29,8 @@ export default StyleSheet.create({
   } as React.ViewStyle,
   label: {
     flex: 1,
-    color: Colors.ironBlue
+    color: Colors.ironBlue,
+    paddingBottom: Metrics.baseMargin
   } as React.TextStyle,
   textInput: {
     flex: 2,
@@ -53,6 +54,14 @@ export default StyleSheet.create({
     // height: 40,
     // color: Colors.ironBlue
   } as React.ViewStyle,
+  choiceList: {
+    backgroundColor: Colors.snow,
+    paddingRight: 10
+  } as React.ViewStyle,
+  numberInput: {
+    padding: Metrics.baseMargin,
+    flex: 1
+  } as React.ViewStyle
 
 })
 

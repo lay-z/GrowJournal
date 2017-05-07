@@ -27,7 +27,8 @@ export default StyleSheet.create({
     },
     label: {
         flex: 1,
-        color: Colors.ironBlue
+        color: Colors.ironBlue,
+        paddingBottom: Metrics.baseMargin
     },
     textInput: {
         flex: 2,
@@ -48,6 +49,14 @@ export default StyleSheet.create({
         paddingVertical: Metrics.doubleBaseMargin,
         paddingHorizontal: Metrics.doubleBaseMargin,
     },
+    choiceList: {
+        backgroundColor: Colors.snow,
+        paddingRight: 10
+    },
+    numberInput: {
+        padding: Metrics.baseMargin,
+        flex: 1
+    }
 });
 export const buttonColour = Colors.ironBlue;
 //# sourceMappingURL=CreateJournalEntryScreenStyle.js.map

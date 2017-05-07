@@ -3,6 +3,9 @@ import React from 'react';
 import { ScrollView, Text, View, TextInput, Picker, Button } from 'react-native';
 import MultipleChoice from 'react-native-multiple-choice';
 import { connect } from 'react-redux';
+// Add Actions - replace 'Your' with whatever your reducer is called :)
+import JournalEntriesActions from '../Redux/JournalEntriesRedux';
+import ScreenActions from '../Redux/OpenScreenRedux';
 // Extra dependencies
 import Moment from 'moment';
 // Styles
@@ -14,7 +17,7 @@ class CreateJournalEntryScreen extends React.Component {
         const startDate = Moment();
         this.state = {
             timestamp: Moment(),
-            ph: 0,
+            ph: 7,
             humidity: 0,
             temperature: 0,
             warnings: [],
@@ -39,15 +42,24 @@ class CreateJournalEntryScreen extends React.Component {
             alert("You have typed in a non number in number field");
         }
     }
+    handleActionInput(actionString) {
+        const index = this.state.actions.indexOf(actionString);
+        if (index < 0) {
+            this.state.actions.push(actionString);
+        }
+        else {
+            this.state.actions.splice(index, 1);
+        }
+    }
     handleSubmit(e) {
-        console.log("state in handleSubmit", this.state);
         const JournalEtnryMembers = [
             "timestamp", "ph", "humidity", "temperature", "warnings",
             "disableSubmit", "actions", "journalID", "comments", "state"
         ];
         let journalEntry = {};
         JournalEtnryMembers.forEach(((name) => journalEntry[name] = this.state[name]));
-        console.log(journalEntry);
+        console.log('journalentry');
+        console.log('timkestampp', journalEntry.timestamp.valueOf());
         this.props.createJournalEntry(journalEntry);
     }
     anySectionEmpty() {
@@ -92,21 +104,24 @@ class CreateJournalEntryScreen extends React.Component {
                         // onSubmitEditing={() => this.refs.emailAddress.focus()}
                         underlineColorAndroid: 'transparent' })),
                 React.createElement(View, { style: styles.row },
-                    React.createElement(Text, { style: styles.label }, "Ph:"),
-                    React.createElement(Picker, { ref: 'ph', style: styles.picker, selectedValue: this.state.ph, onValueChange: (ph) => this.handleInput("ph", ph), mode: "dropdown" }, [...phValues].map(ph => (React.createElement(Picker.Item, { label: String(ph), value: ph, key: ph }))))),
-                React.createElement(View, { style: styles.row },
-                    React.createElement(Text, { style: styles.label }, `Temperature`),
-                    React.createElement(TextInput, { ref: 'temperature', style: styles.textInput, value: String(temperature), editable: true, keyboardType: 'numeric', returnKeyType: 'next', autoCapitalize: 'none', autoCorrect: false, onChangeText: (temperature) => this.handleNumberInput("temperature", temperature), underlineColorAndroid: 'transparent', 
-                        // onSubmitEditing={() => this.refs.emailAddress.focus()}
-                        placeholder: "Type in your name here" })),
-                React.createElement(View, { style: styles.row },
-                    React.createElement(Text, { style: styles.label }, `Humidity`),
-                    React.createElement(TextInput, { ref: 'humidity', style: styles.textInput, value: String(humidity), editable: true, keyboardType: 'numeric', returnKeyType: 'next', autoCapitalize: 'none', autoCorrect: false, onChangeText: (humidity) => this.handleNumberInput("humidity", humidity), underlineColorAndroid: 'transparent', 
-                        // onSubmitEditing={() => this.refs.emailAddress.focus()}
-                        placeholder: "Type in your name here" })),
-                React.createElement(View, { style: styles.row },
+                    React.createElement(View, { style: styles.numberInput },
+                        React.createElement(Text, { style: styles.label }, "Ph:"),
+                        React.createElement(Picker, { ref: 'ph', style: styles.picker, selectedValue: this.state.ph, onValueChange: (ph) => this.handleInput("ph", ph), mode: "dropdown" }, [...phValues].map(ph => (React.createElement(Picker.Item, { label: String(ph), value: ph, key: ph }))))),
+                    React.createElement(View, { style: styles.numberInput },
+                        React.createElement(Text, { style: styles.label }, `Temperature`),
+                        React.createElement(TextInput, { ref: 'temperature', style: styles.textInput, value: String(temperature), editable: true, keyboardType: 'numeric', returnKeyType: 'next', autoCapitalize: 'none', autoCorrect: false, onChangeText: (temperature) => this.handleNumberInput("temperature", temperature), underlineColorAndroid: 'transparent', 
+                            // onSubmitEditing={() => this.refs.emailAddress.focus()}
+                            placeholder: "Type in your name here" })),
+                    React.createElement(View, { style: styles.numberInput },
+                        React.createElement(Text, { style: styles.label }, `Humidity`),
+                        React.createElement(TextInput, { ref: 'humidity', style: styles.textInput, value: String(humidity), editable: true, keyboardType: 'numeric', returnKeyType: 'next', autoCapitalize: 'none', autoCorrect: false, onChangeText: (humidity) => this.handleNumberInput("humidity", humidity), underlineColorAndroid: 'transparent', 
+                            // onSubmitEditing={() => this.refs.emailAddress.focus()}
+                            placeholder: "Type in your name here" }))),
+                React.createElement(View, { style: styles.commentRow },
                     React.createElement(Text, { style: styles.label }, "Actions Taken:"),
-                    React.createElement(MultipleChoice, { options: this.actions, selectedOptions: ['Lorem ipsum'], maxSelectedOptions: 2, onSelection: (option) => alert(option + ' was selected!') })),
+                    React.createElement(MultipleChoice, { options: this.actions, 
+                        // selectedOptions={[]}
+                        style: styles.choiceList, maxSelectedOptions: 0, onSelection: this.handleActionInput.bind(this) })),
                 React.createElement(View, { style: styles.commentRow },
                     React.createElement(Text, { style: [styles.label, { marginBottom: 10 }] }, "Additional Comments:"),
                     React.createElement(TextInput, { ref: 'comments', style: [styles.textInput], value: comments, editable: true, keyboardType: 'default', returnKeyType: 'next', autoCapitalize: 'none', autoCorrect: true, multiline: true, onChangeText: (text) => this.handleInput("comments", text), underlineColorAndroid: 'transparent', 
@@ -124,8 +139,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         createJournalEntry: (journalEntry) => {
-            // console.log("Added journal to state!")
-            // dispatch(JournalActions.addJournalEntry(journal))
+            console.log('timestamp', journalEntry.timestamp.valueOf());
+            dispatch(JournalEntriesActions.addJournalEntry(journalEntry));
+            dispatch(ScreenActions.openScreen('dashboard'));
         }
     };
 };

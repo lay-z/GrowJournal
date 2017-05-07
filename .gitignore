@@ -44,3 +44,6 @@ android/app/libs
 
 # Typings and type script
 typings/*
+
+# Build things
+jsBuild

@@ -5,7 +5,7 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  addJournalEntry: ['journalID'],
+  addJournalEntry: ['journalEntry'],
   stopViewJournal: null
 })
 
@@ -20,7 +20,8 @@ export const INITIAL_STATE: journalEntryState = {}
 
 /* ------------- Reducers ------------- */
 
-export const addJournalEntry = (state: journalEntryState, { journalEntry }: { journalEntry: GJ.JournalEntry }) => {
+export const addJournalEntry = (state: journalEntryState, { journalEntry }: { journalEntry: GJ.JournalEntry } ) => {
+  console.log('lakdjfakldjf;aksdjf;aksdjf', journalEntry.journalID)
   return Object.assign({}, state, {[String(journalEntry.timestamp.valueOf())]: journalEntry})
 }
 

@@ -5,7 +5,8 @@ import { ScrollView, Text, View, TextInput, Picker, Button } from 'react-native'
 import MultipleChoice from 'react-native-multiple-choice'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
-import JournalActions from '../Redux/JournalsRedux'
+import JournalEntriesActions from '../Redux/JournalEntriesRedux'
+import ScreenActions from '../Redux/OpenScreenRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
 // Extra dependencies
@@ -39,7 +40,7 @@ class CreateJournalEntryScreen extends React.Component<CreateJournalEntryScreenP
     const startDate = Moment()
     this.state = {
       timestamp: Moment(),
-      ph: 0,
+      ph: 7,
       humidity: 0,
       temperature: 0,
       warnings: [],
@@ -67,8 +68,16 @@ class CreateJournalEntryScreen extends React.Component<CreateJournalEntryScreenP
     }
   }
 
+  handleActionInput(actionString) {
+    const index = this.state.actions.indexOf(actionString)
+    if (index < 0) {
+      this.state.actions.push(actionString)
+    } else {
+      this.state.actions.splice(index, 1)
+    }
+  }
+
   handleSubmit(e: Event) {
-    console.log("state in handleSubmit", this.state)
     const JournalEtnryMembers = [
       "timestamp", "ph", "humidity", "temperature", "warnings",
       "disableSubmit", "actions", "journalID", "comments", "state"
@@ -77,7 +86,8 @@ class CreateJournalEntryScreen extends React.Component<CreateJournalEntryScreenP
     let journalEntry: GJ.JournalEntry = {};
     JournalEtnryMembers.forEach(((name) => journalEntry[name] = this.state[name]))
 
-    console.log(journalEntry)
+    console.log('journalentry')
+    console.log('timkestampp', journalEntry.timestamp.valueOf())
 
     this.props.createJournalEntry(journalEntry)
   }
@@ -154,56 +164,59 @@ class CreateJournalEntryScreen extends React.Component<CreateJournalEntryScreenP
               underlineColorAndroid='transparent'/>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>{"Ph:"}</Text>
-            <Picker
-              ref='ph'
-              style={styles.picker}
-              selectedValue={this.state.ph}
-              onValueChange={(ph) => this.handleInput("ph", ph)}
-              mode="dropdown"
-            >
-              {[...phValues].map(ph => (<Picker.Item label={String(ph)} value={ph} key={ph}/>))}
-            </Picker>
+            <View style={styles.numberInput}>
+              <Text style={styles.label}>{"Ph:"}</Text>
+              <Picker
+                ref='ph'
+                style={styles.picker}
+                selectedValue={this.state.ph}
+                onValueChange={(ph) => this.handleInput("ph", ph)}
+                mode="dropdown"
+              >
+                {[...phValues].map(ph => (<Picker.Item label={String(ph)} value={ph} key={ph}/>))}
+              </Picker>
+            </View>
+            <View style={styles.numberInput}>
+              <Text style={styles.label}>{`Temperature`}</Text>
+              <TextInput
+                ref='temperature'
+                style={styles.textInput}
+                value={String(temperature)}
+                editable={true}
+                keyboardType='numeric'
+                returnKeyType='next'
+                autoCapitalize='none'
+                autoCorrect={false}
+                onChangeText={(temperature) => this.handleNumberInput("temperature", temperature)}
+                underlineColorAndroid='transparent'
+                // onSubmitEditing={() => this.refs.emailAddress.focus()}
+                placeholder={"Type in your name here"} />
+            </View>
+            <View style={styles.numberInput}>
+              <Text style={styles.label}>{`Humidity`}</Text>
+              <TextInput
+                ref='humidity'
+                style={styles.textInput}
+                value={String(humidity)}
+                editable={true}
+                keyboardType='numeric'
+                returnKeyType='next'
+                autoCapitalize='none'
+                autoCorrect={false}
+                onChangeText={(humidity) => this.handleNumberInput("humidity", humidity)}
+                underlineColorAndroid='transparent'
+                // onSubmitEditing={() => this.refs.emailAddress.focus()}
+                placeholder={"Type in your name here"} />
+            </View>
           </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>{`Temperature`}</Text>
-            <TextInput
-              ref='temperature'
-              style={styles.textInput}
-              value={String(temperature)}
-              editable={true}
-              keyboardType='numeric'
-              returnKeyType='next'
-              autoCapitalize='none'
-              autoCorrect={false}
-              onChangeText={(temperature) => this.handleNumberInput("temperature", temperature)}
-              underlineColorAndroid='transparent'
-              // onSubmitEditing={() => this.refs.emailAddress.focus()}
-              placeholder={"Type in your name here"} />
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>{`Humidity`}</Text>
-            <TextInput
-              ref='humidity'
-              style={styles.textInput}
-              value={String(humidity)}
-              editable={true}
-              keyboardType='numeric'
-              returnKeyType='next'
-              autoCapitalize='none'
-              autoCorrect={false}
-              onChangeText={(humidity) => this.handleNumberInput("humidity", humidity)}
-              underlineColorAndroid='transparent'
-              // onSubmitEditing={() => this.refs.emailAddress.focus()}
-              placeholder={"Type in your name here"} />
-          </View>
-          <View style={styles.row}>
+          <View style={styles.commentRow}>
             <Text style={styles.label}>{"Actions Taken:"}</Text>
             <MultipleChoice
               options={this.actions}
-              selectedOptions={['Lorem ipsum']}
-              maxSelectedOptions={2}
-              onSelection={(option)=>alert(option + ' was selected!')}
+              // selectedOptions={[]}
+              style={styles.choiceList}
+              maxSelectedOptions={0}
+              onSelection={this.handleActionInput.bind(this)}
             />
           </View>
           <View style={styles.commentRow}>
@@ -241,8 +254,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     createJournalEntry: (journalEntry: GJ.JournalEntry) => {
-      // console.log("Added journal to state!")
-      // dispatch(JournalActions.addJournalEntry(journal))
+      console.log('timestamp', journalEntry.timestamp.valueOf())
+      dispatch(JournalEntriesActions.addJournalEntry(journalEntry))
+      dispatch(ScreenActions.openScreen('dashboard'))
     }
   }
 }
